@@ -123,21 +123,115 @@
             font-weight: 500;
         }
         .sub-card {
-            background-color: #e0f7fa; /* Reverted to very light blue */
+            background-color: #e0f7fa;
             border-radius: 0.75rem;
             padding: 2rem;
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            color: #073B4C; /* Ensure text is readable on light background */
+            color: #073B4C;
         }
         .sub-card h3, .sub-card strong, .sub-card p, .sub-card ul, .sub-card li {
-            color: inherit; /* Inherit color from parent sub-card */
+            color: inherit;
         }
         .sub-card a {
-            color: #118AB2; /* Link color on sub-card */
+            color: #118AB2;
             text-decoration: underline;
         }
         .sub-card a:hover {
-            color: #FF6B6B; /* Hover color for links on sub-card */
+            color: #FF6B6B;
+        }
+        /* Carousel specific styles */
+        .carousel-container {
+            position: relative;
+            margin: 0 auto;
+            overflow: hidden; /* This hides the scrollbar */
+            border-radius: 0.75rem;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3); /* Stronger inset shadow */
+            border: 1px solid #e0e0e0; /* Added border for visibility */
+            padding: 1rem; /* Added padding to make borders visible */
+            background-color: rgba(17, 138, 178, 0.2); /* Set background to Yogi Foods title color with 20% opacity */
+        }
+        .carousel-track {
+            display: flex;
+            overflow-x: auto; /* Enable horizontal scrolling */
+            -webkit-overflow-scrolling: touch; /* For smooth scrolling on iOS */
+            scroll-snap-type: x mandatory; /* Snap to items */
+            scroll-behavior: smooth; /* Smooth scroll for JS buttons */
+            gap: 1rem; /* Tailwind's default gap-4 is 1rem */
+            padding-bottom: 1rem; /* To prevent scrollbar from overlapping content */
+            scrollbar-width: none; /* Firefox */
+        }
+        .carousel-track::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Edge */
+        }
+        .product-slide {
+            flex-shrink: 0; /* Prevent shrinking */
+            scroll-snap-align: start; /* Snap to the start of each slide */
+            background-color: white;
+            padding: 1rem; /* Reduced padding */
+            text-align: center;
+            border-radius: 0.75rem;
+            width: 100%; /* Default for small screens */
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); /* Added shadow to product cards */
+        }
+        .product-slide img {
+            max-width: 100%;
+            height: auto;
+            max-height: 350px; /* Increased max-height for images by 40% (250 * 1.4 = 350) */
+            object-fit: contain; /* Ensure image fits without cropping */
+        }
+        .product-slide h3 {
+            font-size: 1.125rem; /* Reduced text size */
+            margin-bottom: 0.5rem;
+        }
+        .product-slide p {
+            font-size: 0.875rem; /* Reduced text size */
+        }
+
+        @media (min-width: 640px) { /* sm breakpoint */
+            .product-slide {
+                width: calc(50% - 0.5rem); /* 2 items per row with gap */
+            }
+        }
+        @media (min-width: 768px) { /* md breakpoint */
+            .product-slide {
+                width: calc(33.333% - 0.666rem); /* 3 items per row with gap */
+            }
+        }
+        @media (min-width: 1024px) { /* lg breakpoint */
+            .product-slide {
+                width: calc(25% - 0.75rem); /* 4 items per row with gap */
+            }
+        }
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(17, 138, 178, 0.7);
+            color: white;
+            border: none;
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            border-radius: 0.5rem;
+            font-size: 1.5rem;
+            z-index: 10;
+            transition: background-color 0.3s ease;
+        }
+        .carousel-button:hover {
+            background-color: #0d6e8a;
+        }
+        .carousel-button.prev {
+            left: 10px;
+        }
+        .carousel-button.next {
+            right: 10px;
+        }
+        /* New background for the entire products section */
+        #products {
+            background-color: #d6eef8;
+        }
+        /* Custom line height for the main tagline */
+        .custom-line-height {
+            line-height: 1.4375; /* 1.25 * 1.15 = 1.4375 */
         }
     </style>
 </head>
@@ -158,6 +252,7 @@
             <div class="container mx-auto px-6 py-4 flex justify-between items-center">
                 <h1 class="text-2xl font-bold text-[#118AB2]">Yogi Foods</h1>
                 <nav class="hidden md:flex space-x-8">
+                    <a href="#products" class="hover:text-[#FF6B6B]">Products</a>
                     <a href="#vision" class="hover:text-[#FF6B6B]">Vision</a>
                     <a href="#opportunity" class="hover:text-[#FF6B6B]">Opportunity</a>
                     <a href="#traction" class="hover:text-[#FF6B6B]">Traction</a>
@@ -168,41 +263,89 @@
         </header>
 
         <main class="container mx-auto px-6 py-12">
-            <section class="text-center mb-12 bg-white rounded-lg p-8 shadow-2xl md:flex md:items-center md:text-left">
-                <img src="https://cdn.sumup.store/shops/48241983/settings/th2048/5f982c09-f692-45e2-8269-5fb60f963017.png" alt="Yogi Foods Logo" class="mx-auto md:mx-0 my-6 md:my-0 max-w-[250px] h-auto md:mr-8">
-                <div class="flex-1">
-                    <h1 class="text-4xl md:text-6xl font-black text-[#073B4C] leading-tight mb-4">Pure Indian Dairy, Global Markets</h1>
-                    <p class="text-xl md:text-2xl max-w-3xl mx-auto md:mx-0 text-[#118AB2] artistic-font">
-                        Crafting the purest premium milk products rooted in Indian tradition, precisely adapted for world markets, with a focus on sustainability and quality.
-                    </p>
-                    <p class="text-xl md:text-2xl max-w-3xl mx-auto md:mx-0 text-[#06D6A0] font-semibold mt-4">
+            <section class="text-center mb-12 bg-white rounded-lg p-8 shadow-2xl relative">
+                <div class="md:flex md:items-center md:text-left">
+                    <img src="https://cdn.sumup.store/shops/48241983/settings/th2048/5f982c09-f692-45e2-8269-5fb60f963017.png" alt="Yogi Foods Logo" class="mx-auto md:mx-0 my-6 md:my-0 max-w-[250px] h-auto md:mr-8">
+                    <div class="flex-1">
+                        <h1 class="text-2xl md:text-3xl font-black text-[#073B4C] custom-line-height">
+                            Crafting <span class="text-[#118AB2]">premium</span> milk products rooted in Indian <span class="text-[#118AB2]">tradition</span>, adapted for <span class="text-[#118AB2]">world markets</span>, with a focus on <span class="text-[#118AB2]">quality</span> and <span class="text-[#118AB2]">sustainability</span>.
+                        </h1>
+                    </div>
+                </div>
+                <div class="flex items-center justify-center mt-8"> <!-- Added mt-8 for spacing -->
+                    <div class="flex-grow border-t-2 border-[#FF6B6B] mx-2"></div>
+                    <p class="text-xl md:text-2xl text-[#FF6B6B] font-semibold text-center whitespace-nowrap artistic-font">
                         Proudly made with Swiss milk and Swiss quality 🇨🇭
                     </p>
+                    <div class="flex-grow border-t-2 border-[#FF6B6B] mx-2"></div>
                 </div>
             </section>
+
+            <!-- Our Products Section - Now a Carousel -->
+            <section id="products" class="mb-12 bg-white rounded-lg p-8 shadow-2xl">
+                <h2 class="text-3xl font-bold text-center mb-8">Our Products</h2>
+                <p class="text-center max-w-2xl mx-auto mb-12">Discover our range of authentic Indian dairy products, crafted with Swiss milk and quality.</p>
+                
+                <div class="carousel-container">
+                    <div class="carousel-track" id="product-carousel-track">
+                        <!-- Product 1: Yogi Paneer - Traditional / Klassisch (smaller pack) -->
+                        <div class="product-slide">
+                            <img src="https://images.sumup.com/img_3AB0YD71ZZ962R9Q3MZYBM460G/image.png" alt="Yogi Paneer - Traditional / Klassisch" class="mx-auto mb-4 rounded-lg w-full max-w-[600px] h-auto">
+                            <h3 class="text-xl font-bold mb-2">Yogi Paneer - Classic/Traditional</h3>
+                            <p class="text-md mb-2">Traditional Indian fresh cheese</p>
+                        </div>
+                        <!-- Product 2: Yogi Ghee / Bratbutter -->
+                        <div class="product-slide">
+                            <img src="https://images.sumup.com/img_39N3M8CWZB8SWAT0K620H61TE6/image.png" alt="Yogi Ghee / Bratbutter" class="mx-auto mb-4 rounded-lg w-full max-w-[600px] h-auto">
+                            <h3 class="text-xl font-bold mb-2">Yogi Ghee</h3>
+                            <p class="text-md mb-2">Traditional clarified butter</p>
+                        </div>
+                        <!-- Product 3: BIO Yogi Paneer - Salatkäse gesalzen mit Kräutern -->
+                        <div class="product-slide">
+                            <img src="https://images.sumup.com/img_20ABB6PZG09CJTBEBV02K1T2PD/image.png" alt="BIO Yogi Paneer - Salatkäse gesalzen mit Kräutern" class="mx-auto mb-4 rounded-lg w-full max-w-[600px] h-auto">
+                            <h3 class="text-xl font-bold mb-2">BIO Yogi Paneer - Herbs</h3>
+                            <p class="text-md mb-2">Salted salad cheese with herbs</p>
+                        </div>
+                        <!-- Product 4: BIO Yogi Paneer - Salatkäse gesalzen mit Pfeffer -->
+                        <div class="product-slide">
+                            <img src="https://images.sumup.com/img_5Z9EKWN3SD88BB48GTHDFB513W/image.png" alt="BIO Yogi Paneer - Salatkäse gesalzen mit Pfeffern" class="mx-auto mb-4 rounded-lg w-full max-w-[600px] h-auto">
+                            <h3 class="text-xl font-bold mb-2">BIO Yogi Paneer - Pepper</h3>
+                            <p class="text-md mb-2">Salted salad cheese with pepper</p>
+                        </div>
+                        <!-- Product 5: BIO Yogi Paneer - Traditional / Klassisch -->
+                        <div class="product-slide">
+                            <img src="https://images.sumup.com/img_7BSYKKGC129DC8QX0M5979YWNW/image.png" alt="BIO Yogi Paneer - Traditional / Klassisch" class="mx-auto mb-4 rounded-lg w-full max-w-[600px] h-auto">
+                            <h3 class="text-xl font-bold mb-2">BIO Yogi Paneer - Classic</h3>
+                            <p class="text-md mb-2">Traditional Indian fresh cheese</p>
+                        </div>
+                        <!-- Product 6: Yogi Paneer - BBQ Paneer gesalzen mit Kräutern -->
+                        <div class="product-slide">
+                            <img src="https://images.sumup.com/img_0RXSYMT4A886VTTA4F99NYH76X/image.png" alt="Yogi Paneer - BBQ Paneer gesalzen mit Kräutern" class="mx-auto mb-4 rounded-lg w-full max-w-[600px] h-auto">
+                            <h3 class="text-xl font-bold mb-2">Yogi Paneer - BBQ Herbs</h3>
+                            <p class="text-md mb-2">Salted BBQ paneer with herbs</p>
+                        </div>
+                        <!-- Product 7: Yogi Paneer - BBQ Paneer gesalzen mit Pfeffer -->
+                        <div class="product-slide">
+                            <img src="https://images.sumup.com/img_1594RFN6PF9GMS065RDGBVVBFS/image.png" alt="Yogi Paneer - BBQ Paneer gesalhen mit Pfeffer" class="mx-auto mb-4 rounded-lg w-full max-w-[600px] h-auto">
+                            <h3 class="text-xl font-bold mb-2">Yogi Paneer - BBQ Pepper</h3>
+                            <p class="text-md mb-2">Salted BBQ paneer with pepper</p>
+                        </div>
+                    </div>
+                    <button class="carousel-button prev" onclick="moveSlide(-1)">&#10094;</button>
+                    <button class="carousel-button next" onclick="moveSlide(1)">&#10095;</button>
+                </div>
+            </section>
+
 
             <section id="vision" class="mb-12 bg-white rounded-lg p-8 shadow-2xl">
                 <h2 class="text-3xl font-bold text-center mb-4">Company Overview & Vision</h2>
                 <p class="text-center max-w-2xl mx-auto mb-12">Yogi Foods crafts premium milk products, including Paneer, Ghee, and Yogurt, deeply rooted in Indian tradition. Our unique selling point is high premium quality, with organic options available.</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                     <div class="sub-card text-center">
-                        <h3 class="text-2xl font-bold mb-2">Our Products</h3>
-                        <ul class="list-disc list-inside text-lg text-left mx-auto max-w-xs space-y-2">
-                            <li><strong>Paneer:</strong> Our flagship fresh cheese</li>
-                            <li><strong>Ghee:</strong> Traditional clarified butter</li>
-                            <li><strong>Yogurt:</strong> Authentic, wholesome dairy</li>
-                            <li><strong>Planned:</strong> Premium Ready Meals</li>
-                        </ul>
-                        <p class="mt-4 text-sm font-semibold">High Premium Quality with Organic Options Available</p>
-                        <p class="mt-2 text-sm font-semibold">Made with Swiss Milk 🇨🇭</p>
-                    </div>
-                    <div class="sub-card text-center">
                         <h3 class="text-2xl font-bold mb-2">Founding Team</h3>
-                        <p class="text-lg mb-2"><strong>Devesh Kothari</strong></p>
-                        <p class="text-md font-semibold">Extensive background in Technology</p>
-                        <p class="text-lg mt-4 mb-2"><strong>Vita</strong></p>
-                        <p class="text-md font-semibold">Strong expertise in Finance</p>
-                        <p class="mt-4 text-sm">A powerful blend of tech innovation and financial acumen driving our vision forward.</p>
+                        <p class="text-lg mb-2"><strong>Devesh Kothari:</strong> 27+ years experience in Technology</p>
+                        <p class="text-lg mt-4 mb-2"><strong>Vita:</strong> 20+ years experience in Finance</p>
+                        <p class="mt-4 text-sm">Yogi Foods is led by an experienced, passionate, creative, and strategic team.</p>
                     </div>
                 </div>
             </section>
@@ -237,8 +380,8 @@
             <section id="traction" class="mb-12 bg-white rounded-lg p-8 shadow-2xl">
                 <h2 class="text-3xl font-bold text-center mb-4">Proven Traction & Validated Success</h2>
                 <p class="text-center max-w-2xl mx-auto mb-12">In just 18 months, with zero marketing spend, we have demonstrated significant market validation and built a strong foundation for growth.</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="sub-card md:col-span-2 lg:col-span-3">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="sub-card md:col-span-2 lg:col-span-4">
                         <h3 class="text-2xl font-bold text-center mb-4">Established Distribution Channels</h3>
                         <p class="text-center mb-4">We've built a robust network to reach our customers effectively.</p>
                         <div class="flex flex-wrap justify-center gap-4 text-center text-lg font-semibold">
@@ -249,12 +392,15 @@
                         <p class="mt-6 text-sm text-center">Supported by a registered trademark, ensuring brand protection and recognition.</p>
                     </div>
 
-                    <div class="kpi-card bg-[#FFD166]">
-                        <h3 class="text-2xl font-bold mb-2 text-[#073B4C]">Revenue Generated</h3>
-                        <p class="kpi-number text-6xl md:text-7xl mb-2 text-white">> CHF 100K</p>
-                        <p class="kpi-label text-xl text-[#073B4C]">in 18 months</p>
+                    <!-- Initial Investment Card -->
+                    <div class="kpi-card bg-[#FF6B6B]">
+                        <h3 class="text-2xl font-bold mb-2 text-white">Initial Investment</h3>
+                        <p class="kpi-number text-6xl md:text-7xl mb-2 text-white">CHF 100K</p>
+                        <p class="kpi-label text-xl text-white">Secured</p>
+                        <p class="mt-4 text-sm text-white">Early funding validating market potential.</p>
                     </div>
 
+                    <!-- BIO/Organic Card -->
                     <div class="kpi-card bg-[#06D6A0]">
                         <h3 class="text-2xl font-bold mb-2 text-[#073B4C]">BIO/Organic</h3>
                         <p class="kpi-number text-6xl md:text-7xl mb-2 text-white">Certified</p>
@@ -262,11 +408,19 @@
                         <p class="mt-2 text-sm text-[#073B4C] font-semibold">Ensuring Swiss Quality Standards</p>
                     </div>
                     
-                    <div class="kpi-card bg-[#118AB2] md:col-span-2 lg:col-span-1">
+                    <!-- Production Capability Card -->
+                    <div class="kpi-card bg-[#118AB2]">
                         <h3 class="text-2xl font-bold mb-2 text-white">Production Capability</h3>
                         <p class="kpi-number text-6xl md:text-7xl mb-2 text-white">500-1500</p>
                         <p class="kpi-label text-xl text-white">kg/month (Flexible)</p>
                         <p class="mt-4 text-sm text-white">Scalable JIT production prevents inventory buildup, adapting to demand.</p>
+                    </div>
+
+                    <!-- Sales Exceeding Card -->
+                    <div class="kpi-card bg-[#FFD166]">
+                        <h3 class="text-2xl font-bold mb-2 text-[#073B4C]">Sales Exceeding</h3>
+                        <p class="kpi-number text-6xl md:text-7xl mb-2 text-white">> CHF 110K</p>
+                        <p class="kpi-label text-xl text-[#073B4C]">per year</p>
                     </div>
                 </div>
             </section>
@@ -284,7 +438,7 @@
                     <div class="flow-step text-center p-6 border-2 rounded-lg w-full md:w-1/3">
                         <p class="text-sm font-bold text-[#118AB2]">PHASE 2</p>
                         <p class="text-xl font-semibold my-2">Expand & Diversify</p>
-                        <p class="text-sm">Expand into UAE & Nordics. Enter Feta and Halloumi markets with our unique offerings.</p>
+                        <p class="text-sm">Establish partnerships in the UAE & Nordics. Innovate into Feta and Halloumi markets.</p>
                     </div>
                     <div class="flow-arrow text-4xl font-light transform md:-translate-y-4 rotate-90 md:rotate-0">→</div>
                     <div class="flow-step text-center p-6 border-2 rounded-lg w-full md:w-1/3">
@@ -313,6 +467,11 @@
                         <div class="chart-container">
                             <canvas id="fundingChart"></canvas>
                         </div>
+                    </div>
+                    <!-- Updated Exit Strategy Card with underlines -->
+                    <div class="md:col-span-2 sub-card text-center">
+                        <h3 class="text-2xl font-bold">Exit Strategy (3-5 Year Timeframe)</h3>
+                        <p class="text-lg">Our strategy is to generate significant investor returns by positioning ourselves for a buyout by an established <span class="font-semibold underline">European food conglomerate</span>. The appeal lies in our <span class="font-semibold underline">powerful premium Yogi brand</span> and a product portfolio that <span class="font-semibold underline">perfectly complements a larger entity</span>, making us an ideal merger target.</p>
                     </div>
                 </div>
             </section>
@@ -425,6 +584,30 @@
                 }
             }
         });
+
+        // Carousel Logic
+        function moveSlide(direction) {
+            const track = document.getElementById('product-carousel-track');
+            const firstSlide = track.querySelector('.product-slide');
+            if (!firstSlide) return;
+
+            // Calculate the width of one visible "step" for scrolling
+            const slideWidth = firstSlide.offsetWidth;
+            const gap = parseInt(window.getComputedStyle(track).gap) || 0;
+            const stepWidth = slideWidth + gap;
+
+            // Calculate the target scroll position
+            let targetScrollLeft = track.scrollLeft + (direction * stepWidth);
+
+            // Clamp the target scroll position
+            const maxScrollLeft = track.scrollWidth - track.clientWidth;
+            targetScrollLeft = Math.max(0, Math.min(targetScrollLeft, maxScrollLeft));
+
+            track.scrollTo({
+                left: targetScrollLeft,
+                behavior: 'smooth'
+            });
+        }
     </script>
 
 </body>
