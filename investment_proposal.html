@@ -71,182 +71,271 @@
             visibility: hidden;
             pointer-events: none;
         }
+        /* Passcode Overlay Styles */
+        #passcode-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(7, 59, 76, 0.95); /* Dark background with transparency */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .passcode-box {
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+        .passcode-input {
+            border: 2px solid #118AB2;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            width: 100%;
+            margin-bottom: 1rem;
+            font-size: 1.125rem;
+            color: #073B4C;
+        }
+        .passcode-button {
+            background-color: #118AB2;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .passcode-button:hover {
+            background-color: #0d6e8a;
+        }
+        .error-message {
+            color: #FF6B6B;
+            margin-top: 0.75rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
     </style>
 </head>
 <body class="text-[#073B4C]">
 
-    <header class="bg-white shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-[#118AB2]">Yogi Foods</h1>
-            <nav class="hidden md:flex space-x-8">
-                <a href="#vision" class="hover:text-[#FF6B6B]">Vision</a>
-                <a href="#opportunity" class="hover:text-[#FF6B6B]">Opportunity</a>
-                <a href="#traction" class="hover:text-[#FF6B6B]">Traction</a>
-                <a href="#roadmap" class="hover:text-[#FF6B6B]">Roadmap</a>
-                <a href="#investment" class="hover:text-[#FF6B6B]">Investment</a>
-            </nav>
+    <div id="passcode-overlay">
+        <div class="passcode-box">
+            <h2 class="text-3xl font-bold text-[#073B4C] mb-4">Access Infographic</h2>
+            <p class="text-md text-[#118AB2] mb-6">Please enter the passcode to view the Yogi Foods Investment Infographic.</p>
+            <input type="password" id="passcode-input" class="passcode-input" placeholder="Enter passcode">
+            <button id="passcode-submit" class="passcode-button">Submit</button>
+            <div id="error-message" class="error-message hidden">Incorrect passcode. Please try again.</div>
         </div>
-    </header>
+    </div>
 
-    <main class="container mx-auto px-6 py-12">
-        <section class="text-center mb-20">
-            <h1 class="text-4xl md:text-6xl font-black text-[#073B4C] leading-tight mb-4">Pure Indian Dairy, Global Markets</h1>
-            <p class="text-lg md:text-xl max-w-3xl mx-auto text-[#118AB2]">
-                Crafting the purest premium milk products rooted in Indian tradition, precisely adapted for world markets, with a focus on sustainability and quality.
-            </p>
-        </section>
-
-        <section id="vision" class="mb-20">
-            <h2 class="text-3xl font-bold text-center mb-4">Company Overview & Vision</h2>
-            <p class="text-center max-w-2xl mx-auto mb-12">Yogi Foods crafts premium milk products, including Paneer, Ghee, and Yogurt, deeply rooted in Indian tradition. Our unique selling point is high premium quality, with organic options available.</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                <div class="bg-white rounded-lg p-6 shadow-lg text-center">
-                    <h3 class="text-2xl font-bold mb-2">Our Products</h3>
-                    <ul class="list-disc list-inside text-lg text-left mx-auto max-w-xs space-y-2">
-                        <li><strong>Paneer:</strong> Our flagship fresh cheese</li>
-                        <li><strong>Ghee:</strong> Traditional clarified butter</li>
-                        <li><strong>Yogurt:</strong> Authentic, wholesome dairy</li>
-                        <li><strong>Planned:</strong> Premium Ready Meals</li>
-                    </ul>
-                    <p class="mt-4 text-sm text-[#118AB2] font-semibold">High Premium Quality with Organic Options Available</p>
-                </div>
-                <div class="bg-white rounded-lg p-6 shadow-lg text-center">
-                    <h3 class="text-2xl font-bold mb-2">Founding Team</h3>
-                    <p class="text-lg mb-2"><strong>Devesh Kothari</strong></p>
-                    <p class="text-md text-[#06D6A0] font-semibold">Extensive background in Technology</p>
-                    <p class="text-lg mt-4 mb-2"><strong>Vita</strong></p>
-                    <p class="text-md text-[#06D6A0] font-semibold">Strong expertise in Finance</p>
-                    <p class="mt-4 text-sm">A powerful blend of tech innovation and financial acumen driving our vision forward.</p>
-                </div>
+    <div id="app-content" style="display: none;">
+        <header class="bg-white shadow-md sticky top-0 z-50">
+            <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-[#118AB2]">Yogi Foods</h1>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#vision" class="hover:text-[#FF6B6B]">Vision</a>
+                    <a href="#opportunity" class="hover:text-[#FF6B6B]">Opportunity</a>
+                    <a href="#traction" class="hover:text-[#FF6B6B]">Traction</a>
+                    <a href="#roadmap" class="hover:text-[#FF6B6B]">Roadmap</a>
+                    <a href="#investment" class="hover:text-[#FF6B6B]">Investment</a>
+                </nav>
             </div>
-        </section>
+        </header>
 
-        <section id="opportunity" class="mb-20">
-            <h2 class="text-3xl font-bold text-center mb-4">A Market Ripe with Opportunity</h2>
-            <p class="text-center max-w-2xl mx-auto mb-12">The demand for authentic, high-quality ethnic foods is surging. Yogi Foods is perfectly positioned to capitalize on key consumer trends and untapped market potential.</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="kpi-card">
-                    <h3 class="text-2xl font-bold mb-2">Swiss Paneer Demand</h3>
-                    <p class="kpi-number text-7xl mb-2">+10,000</p>
-                    <p class="kpi-label text-xl">kg per month</p>
-                    <p class="mt-4 text-sm">A significant untapped demand for fresh, authentic paneer exists in Switzerland alone, providing a strong initial market.</p>
-                </div>
+        <main class="container mx-auto px-6 py-12">
+            <section class="text-center mb-20">
+                <h1 class="text-4xl md:text-6xl font-black text-[#073B4C] leading-tight mb-4">Pure Indian Dairy, Global Markets</h1>
+                <p class="text-lg md:text-xl max-w-3xl mx-auto text-[#118AB2]">
+                    Crafting the purest premium milk products rooted in Indian tradition, precisely adapted for world markets, with a focus on sustainability and quality.
+                </p>
+            </section>
 
-                <div class="bg-white rounded-lg p-6 shadow-lg">
-                    <h3 class="text-2xl font-bold text-center mb-2">European Ready Meals Growth</h3>
-                    <p class="text-center mb-4">This high-growth sector is projected to soar, driven by demand for convenient, quality food.</p>
-                    <div class="chart-container">
-                        <canvas id="marketGrowthChart"></canvas>
+            <section id="vision" class="mb-20">
+                <h2 class="text-3xl font-bold text-center mb-4">Company Overview & Vision</h2>
+                <p class="text-center max-w-2xl mx-auto mb-12">Yogi Foods crafts premium milk products, including Paneer, Ghee, and Yogurt, deeply rooted in Indian tradition. Our unique selling point is high premium quality, with organic options available.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="bg-white rounded-lg p-6 shadow-lg text-center">
+                        <h3 class="text-2xl font-bold mb-2">Our Products</h3>
+                        <ul class="list-disc list-inside text-lg text-left mx-auto max-w-xs space-y-2">
+                            <li><strong>Paneer:</strong> Our flagship fresh cheese</li>
+                            <li><strong>Ghee:</strong> Traditional clarified butter</li>
+                            <li><strong>Yogurt:</strong> Authentic, wholesome dairy</li>
+                            <li><strong>Planned:</strong> Premium Ready Meals</li>
+                        </ul>
+                        <p class="mt-4 text-sm text-[#118AB2] font-semibold">High Premium Quality with Organic Options Available</p>
+                    </div>
+                    <div class="bg-white rounded-lg p-6 shadow-lg text-center">
+                        <h3 class="text-2xl font-bold mb-2">Founding Team</h3>
+                        <p class="text-lg mb-2"><strong>Devesh Kothari</strong></p>
+                        <p class="text-md text-[#06D6A0] font-semibold">Extensive background in Technology</p>
+                        <p class="text-lg mt-4 mb-2"><strong>Vita</strong></p>
+                        <p class="text-md text-[#06D6A0] font-semibold">Strong expertise in Finance</p>
+                        <p class="mt-4 text-sm">A powerful blend of tech innovation and financial acumen driving our vision forward.</p>
                     </div>
                 </div>
+            </section>
 
-                <div class="bg-white rounded-lg p-6 shadow-lg md:col-span-2">
-                    <h3 class="text-2xl font-bold text-center mb-4">Dietary Shift: Vegetarian & Flexitarian Market</h3>
-                    <p class="text-center mb-4">A significant portion of the market is shifting towards plant-forward diets, a trend Yogi Foods is perfectly aligned with.</p>
-                    <div class="chart-container h-[260px] md:h-[310px]">
-                        <canvas id="dietaryShiftChart"></canvas>
+            <section id="opportunity" class="mb-20">
+                <h2 class="text-3xl font-bold text-center mb-4">A Market Ripe with Opportunity</h2>
+                <p class="text-center max-w-2xl mx-auto mb-12">The demand for authentic, high-quality ethnic foods is surging. Yogi Foods is perfectly positioned to capitalize on key consumer trends and untapped market potential.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="kpi-card">
+                        <h3 class="text-2xl font-bold mb-2">Swiss Paneer Demand</h3>
+                        <p class="kpi-number text-7xl mb-2">+10,000</p>
+                        <p class="kpi-label text-xl">kg per month</p>
+                        <p class="mt-4 text-sm">A significant untapped demand for fresh, authentic paneer exists in Switzerland alone, providing a strong initial market.</p>
+                    </div>
+
+                    <div class="bg-white rounded-lg p-6 shadow-lg">
+                        <h3 class="text-2xl font-bold text-center mb-2">European Ready Meals Growth</h3>
+                        <p class="text-center mb-4">This high-growth sector is projected to soar, driven by demand for convenient, quality food.</p>
+                        <div class="chart-container">
+                            <canvas id="marketGrowthChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg p-6 shadow-lg md:col-span-2">
+                        <h3 class="text-2xl font-bold text-center mb-4">Dietary Shift: Vegetarian & Flexitarian Market</h3>
+                        <p class="text-center mb-4">A significant portion of the market is shifting towards plant-forward diets, a trend Yogi Foods is perfectly aligned with.</p>
+                        <div class="chart-container h-[260px] md:h-[310px]">
+                            <canvas id="dietaryShiftChart"></canvas>
+                        </div>
                     </div>
                 </div>
+            </section>
+
+            <section id="traction" class="mb-20">
+                <h2 class="text-3xl font-bold text-center mb-4">Proven Traction & Validated Success</h2>
+                <p class="text-center max-w-2xl mx-auto mb-12">In just 18 months, with zero marketing spend, we have demonstrated significant market validation and built a strong foundation for growth.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="kpi-card bg-[#FFD166]">
+                        <h3 class="text-2xl font-bold mb-2 text-[#073B4C]">Revenue Generated</h3>
+                        <p class="kpi-number text-6xl md:text-7xl mb-2 text-white">> CHF 100K</p>
+                        <p class="kpi-label text-xl text-[#073B4C]">in 18 months</p>
+                    </div>
+
+                    <div class="kpi-card bg-[#06D6A0]">
+                        <h3 class="text-2xl font-bold mb-2 text-[#073B4C]">BIO/Organic</h3>
+                        <p class="kpi-number text-6xl md:text-7xl mb-2 text-white">Certified</p>
+                        <p class="kpi-label text-xl text-[#073B4C]">Building consumer trust</p>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg p-6 shadow-lg md:col-span-2 lg:col-span-1">
+                        <h3 class="text-2xl font-bold text-center mb-4">Monthly Paneer Production</h3>
+                        <p class="text-center mb-4">Our operational plant consistently meets initial demand, ready for scale.</p>
+                        <div class="chart-container h-[260px] md:h-[310px]">
+                            <canvas id="productionChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg p-6 shadow-lg md:col-span-2">
+                        <h3 class="text-2xl font-bold text-center mb-4">Established Distribution Channels</h3>
+                        <p class="text-center mb-4">We've built a robust network to reach our customers effectively.</p>
+                        <div class="flex flex-wrap justify-center gap-4 text-center text-lg font-semibold text-[#118AB2]">
+                            <div class="p-4 border-2 border-[#118AB2] rounded-lg">Restaurants</div>
+                            <div class="p-4 border-2 border-[#118AB2] rounded-lg">Retail Partnerships</div>
+                            <div class="p-4 border-2 border-[#118AB2] rounded-lg">Online Shop</div>
+                        </div>
+                        <p class="mt-6 text-sm text-center">Supported by a registered trademark, ensuring brand protection and recognition.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="roadmap" class="mb-20">
+                <h2 class="text-3xl font-bold text-center mb-4">Our Phased Roadmap to Global Leadership</h2>
+                <p class="text-center max-w-3xl mx-auto mb-12">Our strategic growth plan ensures sustainable expansion by conquering markets sequentially and climbing the value chain.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-4">
+                    <div class="flow-step text-center p-6 border-2 rounded-lg w-full md:w-1/3">
+                        <p class="text-sm font-bold text-[#118AB2]">PHASE 1</p>
+                        <p class="text-xl font-semibold my-2">Dominate Switzerland</p>
+                        <p class="text-sm">Capture the local Swiss market and scale production to meet demand.</p>
+                    </div>
+                    <div class="flow-arrow text-4xl font-light transform md:-translate-y-4 rotate-90 md:rotate-0">→</div>
+                    <div class="flow-step text-center p-6 border-2 rounded-lg w-full md:w-1/3">
+                        <p class="text-sm font-bold text-[#118AB2]">PHASE 2</p>
+                        <p class="text-xl font-semibold my-2">Expand & Diversify</p>
+                        <p class="text-sm">Expand into UAE & Nordics. Enter Feta and Halloumi markets with our unique offerings.</p>
+                    </div>
+                    <div class="flow-arrow text-4xl font-light transform md:-translate-y-4 rotate-90 md:rotate-0">→</div>
+                    <div class="flow-step text-center p-6 border-2 rounded-lg w-full md:w-1/3">
+                        <p class="text-sm font-bold text-[#118AB2]">PHASE 3</p>
+                        <p class="text-xl font-semibold my-2">Climb the Value Chain</p>
+                        <p class="text-sm">Launch a line of premium, Paneer-based frozen ready meals for retail.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="investment" class="bg-white rounded-lg p-8 shadow-2xl">
+                <h2 class="text-3xl font-bold text-center mb-4">The Investment Opportunity</h2>
+                <p class="text-center max-w-3xl mx-auto mb-12">Join us at this inflection point. We are seeking strategic partners to help us accelerate our growth and capture a significant share of the global market.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold">Funding Ask</h3>
+                        <div class="my-4">
+                            <p class="kpi-number text-8xl text-[#FF6B6B]">CHF 300K</p>
+                            <p class="kpi-label text-2xl">for 10% Equity</p>
+                        </div>
+                        <p class="text-lg font-semibold">(CHF 3 Million Valuation)</p>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-center mb-4">Use of Funds</h3>
+                        <p class="text-center mb-4">This investment will be strategically allocated to fuel our key growth drivers.</p>
+                        <div class="chart-container">
+                            <canvas id="fundingChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="bg-[#073B4C] text-white mt-20">
+            <div class="container mx-auto px-6 py-8 text-center">
+                <h2 class="text-2xl font-bold">Yogi Foods: Purity. Tradition. Growth.</h2>
+                <p class="my-4">To discuss this exciting opportunity further, please connect with us.</p>
+                <p class="font-semibold">Devesh Kothari</p>
+                <p>
+                    <a href="mailto:devesh@indub.ch" class="hover:text-[#FFD166]">devesh@indub.ch</a> | 
+                    <a href="mailto:yogipaneer@gmail.com" class="hover:text-[#FFD166]">yogipaneer@gmail.com</a>
+                </p>
             </div>
-        </section>
-
-        <section id="traction" class="mb-20">
-            <h2 class="text-3xl font-bold text-center mb-4">Proven Traction & Validated Success</h2>
-             <p class="text-center max-w-2xl mx-auto mb-12">In just 18 months, with zero marketing spend, we have demonstrated significant market validation and built a strong foundation for growth.</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="kpi-card bg-[#FFD166]">
-                    <h3 class="text-2xl font-bold mb-2 text-[#073B4C]">Revenue Generated</h3>
-                    <p class="kpi-number text-6xl md:text-7xl mb-2 text-white">> CHF 100K</p>
-                    <p class="kpi-label text-xl text-[#073B4C]">in 18 months</p>
-                </div>
-
-                <div class="kpi-card bg-[#06D6A0]">
-                     <h3 class="text-2xl font-bold mb-2 text-[#073B4C]">BIO/Organic</h3>
-                    <p class="kpi-number text-6xl md:text-7xl mb-2 text-white">Certified</p>
-                    <p class="kpi-label text-xl text-[#073B4C]">Building consumer trust</p>
-                </div>
-                
-                <div class="bg-white rounded-lg p-6 shadow-lg md:col-span-2 lg:col-span-1">
-                    <h3 class="text-2xl font-bold text-center mb-4">Monthly Paneer Production</h3>
-                    <p class="text-center mb-4">Our operational plant consistently meets initial demand, ready for scale.</p>
-                     <div class="chart-container h-[260px] md:h-[310px]">
-                        <canvas id="productionChart"></canvas>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-lg p-6 shadow-lg md:col-span-2">
-                    <h3 class="text-2xl font-bold text-center mb-4">Established Distribution Channels</h3>
-                    <p class="text-center mb-4">We've built a robust network to reach our customers effectively.</p>
-                    <div class="flex flex-wrap justify-center gap-4 text-center text-lg font-semibold text-[#118AB2]">
-                        <div class="p-4 border-2 border-[#118AB2] rounded-lg">Restaurants</div>
-                        <div class="p-4 border-2 border-[#118AB2] rounded-lg">Retail Partnerships</div>
-                        <div class="p-4 border-2 border-[#118AB2] rounded-lg">Online Shop</div>
-                    </div>
-                    <p class="mt-6 text-sm text-center">Supported by a registered trademark, ensuring brand protection and recognition.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="roadmap" class="mb-20">
-            <h2 class="text-3xl font-bold text-center mb-4">Our Phased Roadmap to Global Leadership</h2>
-             <p class="text-center max-w-3xl mx-auto mb-12">Our strategic growth plan ensures sustainable expansion by conquering markets sequentially and climbing the value chain.</p>
-            <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-4">
-                <div class="flow-step text-center p-6 border-2 rounded-lg w-full md:w-1/3">
-                    <p class="text-sm font-bold text-[#118AB2]">PHASE 1</p>
-                    <p class="text-xl font-semibold my-2">Dominate Switzerland</p>
-                    <p class="text-sm">Capture the local Swiss market and scale production to meet demand.</p>
-                </div>
-                <div class="flow-arrow text-4xl font-light transform md:-translate-y-4 rotate-90 md:rotate-0">→</div>
-                <div class="flow-step text-center p-6 border-2 rounded-lg w-full md:w-1/3">
-                    <p class="text-sm font-bold text-[#118AB2]">PHASE 2</p>
-                    <p class="text-xl font-semibold my-2">Expand & Diversify</p>
-                    <p class="text-sm">Expand into UAE & Nordics. Enter Feta and Halloumi markets with our unique offerings.</p>
-                </div>
-                <div class="flow-arrow text-4xl font-light transform md:-translate-y-4 rotate-90 md:rotate-0">→</div>
-                 <div class="flow-step text-center p-6 border-2 rounded-lg w-full md:w-1/3">
-                    <p class="text-sm font-bold text-[#118AB2]">PHASE 3</p>
-                    <p class="text-xl font-semibold my-2">Climb the Value Chain</p>
-                    <p class="text-sm">Launch a line of premium, Paneer-based frozen ready meals for retail.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="investment" class="bg-white rounded-lg p-8 shadow-2xl">
-            <h2 class="text-3xl font-bold text-center mb-4">The Investment Opportunity</h2>
-            <p class="text-center max-w-3xl mx-auto mb-12">Join us at this inflection point. We are seeking strategic partners to help us accelerate our growth and capture a significant share of the global market.</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div class="text-center">
-                    <h3 class="text-2xl font-bold">Funding Ask</h3>
-                    <div class="my-4">
-                        <p class="kpi-number text-8xl text-[#FF6B6B]">CHF 300K</p>
-                        <p class="kpi-label text-2xl">for 10% Equity</p>
-                    </div>
-                     <p class="text-lg font-semibold">(CHF 3 Million Valuation)</p>
-                </div>
-                <div>
-                     <h3 class="text-2xl font-bold text-center mb-4">Use of Funds</h3>
-                     <p class="text-center mb-4">This investment will be strategically allocated to fuel our key growth drivers.</p>
-                     <div class="chart-container">
-                        <canvas id="fundingChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="bg-[#073B4C] text-white mt-20">
-        <div class="container mx-auto px-6 py-8 text-center">
-            <h2 class="text-2xl font-bold">Yogi Foods: Purity. Tradition. Growth.</h2>
-            <p class="my-4">To discuss this exciting opportunity further, please connect with us.</p>
-            <p class="font-semibold">Devesh Kothari</p>
-            <p>
-                <a href="mailto:devesh@indub.ch" class="hover:text-[#FFD166]">devesh@indub.ch</a> | 
-                <a href="mailto:yogipaneer@gmail.com" class="hover:text-[#FFD166]">yogipaneer@gmail.com</a>
-            </p>
-        </div>
-    </footer>
+        </footer>
+    </div>
 
     <script>
+        // CLIENT-SIDE AUTHENTICATION: This is a basic, client-side passcode.
+        // It is NOT secure for sensitive data as the passcode is visible in the source code.
+        // For production environments, use server-side authentication.
+        const CORRECT_PASSCODE = "yogi123"; // Example passcode
+
+        const passcodeOverlay = document.getElementById('passcode-overlay');
+        const passcodeInput = document.getElementById('passcode-input');
+        const passcodeSubmit = document.getElementById('passcode-submit');
+        const errorMessage = document.getElementById('error-message');
+        const appContent = document.getElementById('app-content');
+
+        passcodeSubmit.addEventListener('click', () => {
+            if (passcodeInput.value === CORRECT_PASSCODE) {
+                passcodeOverlay.style.display = 'none';
+                appContent.style.display = 'block'; // Show the main content
+            } else {
+                errorMessage.classList.remove('hidden');
+                passcodeInput.value = ''; // Clear input on error
+            }
+        });
+
+        // Allow pressing Enter key to submit passcode
+        passcodeInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                passcodeSubmit.click();
+            }
+        });
+
         const tooltipTitleCallback = (tooltipItems) => {
             const item = tooltipItems[0];
             let label = item.chart.data.labels[item.dataIndex];
