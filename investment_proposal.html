@@ -233,6 +233,49 @@
         .custom-line-height {
             line-height: 1.4375; /* 1.25 * 1.15 = 1.4375 */
         }
+        /* New style for the parent grouping card */
+        .grouping-card {
+            background-color: #e0f7fa; /* Light blue background */
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            text-align: center;
+            grid-column: span 1; /* Default to 1 column */
+            /* Removed flex properties from here to allow inner flex to control layout */
+        }
+        .grouping-card .kpi-card {
+            background-color: white; /* Ensure inner cards are white */
+            width: 100%; /* Make inner cards take full width */
+            margin-bottom: 1rem; /* Spacing between inner cards */
+        }
+        .grouping-card .kpi-card:last-child {
+            margin-bottom: 0; /* No margin on the last inner card */
+        }
+        /* Adjusted grid-column spans for the grouping card */
+        @media (min-width: 768px) { /* md breakpoint */
+            .grouping-card {
+                grid-column: span 2; /* Span 2 columns on medium screens */
+            }
+        }
+        @media (min-width: 1024px) { /* lg breakpoint */
+            .grouping-card {
+                grid-column: span 3; /* Span 3 columns on large screens to take full width */
+            }
+        }
+        /* Adjustments for the grid to accommodate the new grouping card */
+        #opportunity .grid {
+            grid-template-columns: repeat(1, minmax(0, 1fr)); /* Default to 1 column */
+        }
+        @media (min-width: 768px) {
+            #opportunity .grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2 columns on medium screens */
+            }
+        }
+        @media (min-width: 1024px) {
+            #opportunity .grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr)); /* 3 columns on large screens */
+            }
+        }
     </style>
 </head>
 <body class="text-[#073B4C]">
@@ -263,8 +306,9 @@
         </header>
 
         <main class="container mx-auto px-6 py-12">
-            <section class="text-center mb-12 bg-white rounded-lg p-8 shadow-2xl relative">
-                <div class="md:flex md:items-center md:text-left">
+            <section id="vision" class="mb-12 bg-white rounded-lg p-8 shadow-2xl">
+                <h2 class="text-3xl font-bold text-center mb-8">Company Overview & Vision</h2>
+                <div class="md:flex md:items-center md:text-left mb-8">
                     <img src="https://cdn.sumup.store/shops/48241983/settings/th2048/5f982c09-f692-45e2-8269-5fb60f963017.png" alt="Yogi Foods Logo" class="mx-auto md:mx-0 my-6 md:my-0 max-w-[250px] h-auto md:mr-8">
                     <div class="flex-1">
                         <h1 class="text-2xl md:text-3xl font-black text-[#073B4C] custom-line-height">
@@ -272,12 +316,29 @@
                         </h1>
                     </div>
                 </div>
-                <div class="flex items-center justify-center mt-8"> <!-- Added mt-8 for spacing -->
+                <div class="flex items-center justify-center mb-8">
                     <div class="flex-grow border-t-2 border-[#FF6B6B] mx-2"></div>
-                    <p class="text-xl md:text-2xl text-[#FF6B6B] font-semibold text-center whitespace-nowrap artistic-font">
-                        Proudly made with Swiss milk and Swiss quality 🇨🇭
+                    <p class="text-xl md:text-2xl text-[#FF6B6B] font-semibold text-center artistic-font">
+                        Proudly made in Switzerland with Swiss milk and to Swiss quality standards
                     </p>
                     <div class="flex-grow border-t-2 border-[#FF6B6B] mx-2"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                    <div class="sub-card text-center">
+                        <h3 class="text-2xl font-bold mb-2">Founding Team</h3>
+                        <p class="text-lg mb-2"><strong>Devesh Kothari:</strong> 25+ years of experience building successful products at Nokia and Google.</p>
+                        <p class="text-lg mt-4 mb-2"><strong>Vita Leisibach:</strong> 20+ years experience in Finance</p>
+                        <p class="mt-4 text-sm">Yogi Foods is led by an experienced, passionate, creative and strategic team.</p>
+                        <div class="kpi-card bg-[#FFD166] mt-6 mx-auto max-w-[200px] py-4 px-2">
+                            <p class="kpi-number text-4xl text-[#073B4C] mb-1">60+</p>
+                            <p class="kpi-label text-md text-[#073B4C]">Years Combined Experience</p>
+                        </div>
+                    </div>
+                    <div class="sub-card text-center">
+                        <h3 class="text-2xl font-bold mb-2">Board of Directors</h3>
+                        <p class="text-lg mb-2"><strong>Aditya Tiwari:</strong> Early investor (currently part of Google)</p>
+                    </div>
                 </div>
             </section>
 
@@ -337,23 +398,10 @@
             </section>
 
 
-            <section id="vision" class="mb-12 bg-white rounded-lg p-8 shadow-2xl">
-                <h2 class="text-3xl font-bold text-center mb-4">Company Overview & Vision</h2>
-                <p class="text-center max-w-2xl mx-auto mb-12">Yogi Foods crafts premium milk products, including Paneer, Ghee, and Yogurt, deeply rooted in Indian tradition. Our unique selling point is high premium quality, with organic options available.</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                    <div class="sub-card text-center">
-                        <h3 class="text-2xl font-bold mb-2">Founding Team</h3>
-                        <p class="text-lg mb-2"><strong>Devesh Kothari:</strong> 27+ years experience in Technology</p>
-                        <p class="text-lg mt-4 mb-2"><strong>Vita:</strong> 20+ years experience in Finance</p>
-                        <p class="mt-4 text-sm">Yogi Foods is led by an experienced, passionate, creative, and strategic team.</p>
-                    </div>
-                </div>
-            </section>
-
             <section id="opportunity" class="mb-12 bg-white rounded-lg p-8 shadow-2xl">
                 <h2 class="text-3xl font-bold text-center mb-4">A Market Ripe with Opportunity</h2>
                 <p class="text-center max-w-2xl mx-auto mb-12">The demand for authentic, high-quality ethnic foods is surging. Yogi Foods is perfectly positioned to capitalize on key consumer trends and untapped market potential.</p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="kpi-card">
                         <h3 class="text-2xl font-bold mb-2">Swiss Paneer Demand</h3>
                         <p class="kpi-number text-5xl mb-2">+10,000</p>
@@ -372,7 +420,29 @@
                         <h3 class="text-2xl font-bold mb-2">Dietary Shift</h3>
                         <p class="kpi-number text-7xl mb-2">40%</p>
                         <p class="kpi-label text-xl">Vegetarian & Flexitarian</p>
-                        <p class="mt-4 text-sm">A significant portion of the market is shifting towards <span class="font-semibold">non meat</span> diets, a trend Yogi Foods is perfectly aligned with.</p>
+                        <p class="mt-4 text-sm">A significant portion of the market is shifting towards <span class="font-semibold">non meat</span> diets.</p>
+                    </div>
+
+                    <!-- New grouping card for Feta and Halloumi -->
+                    <div class="grouping-card">
+                        <h3 class="text-2xl font-bold mb-1 text-[#073B4C]">Health/Leisure lifestyle</h3>
+                        <p class="text-lg font-semibold mb-4 text-[#073B4C]">(Fresh Salads and BBQ)</p>
+                        <p class="mt-2 text-sm">Globally, vegetarian packaged salads hold 67.4% share (6.7% CAGR).</p>
+                        <p class="mt-2 text-sm mb-4">29% of European BBQs feature vegetarian options.</p>
+                        <div class="flex flex-col md:flex-row md:gap-4 w-full items-stretch">
+                            <div class="kpi-card flex-1 h-full">
+                                <h3 class="text-2xl font-bold mb-2">Feta</h3>
+                                <p class="kpi-number text-5xl mb-2">$662.3M</p>
+                                <p class="kpi-label text-xl">by 2033 (CAGR 6.8%)</p>
+                                <p class="mt-4 text-xs"><strong class="text-[#118AB2]">This aligns with our upcoming Yogi Salad product range adapted for European tastes.</strong></p>
+                            </div>
+                            <div class="kpi-card flex-1 h-full">
+                                <h3 class="text-2xl font-bold mb-2">Halloumi</h3>
+                                <p class="kpi-number text-5xl mb-2">$1.78B</p>
+                                <p class="kpi-label text-xl">by 2033 (CAGR 12.7%)</p>
+                                <p class="mt-4 text-xs"><strong class="text-[#118AB2]">This aligns with our upcoming Yogi BBQ positioning.</strong></p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
