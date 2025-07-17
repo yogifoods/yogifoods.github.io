@@ -361,9 +361,27 @@
                 flex-wrap: nowrap; /* Prevent wrapping on desktop */
             }
         }
+        /* Confidential warning style */
+        #confidential-warning {
+            background-color: #FFD166; /* Yellow background */
+            color: #073B4C; /* Dark blue text */
+            text-align: center;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            width: 100%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 99; /* Below passcode overlay, above other content */
+            position: relative; /* To ensure z-index works and it's part of flow */
+        }
     </style>
 </head>
 <body class="text-[#073B4C]">
+
+    <!-- Confidential Warning -->
+    <div id="confidential-warning" style="display: none;">
+        <p id="confidential-text" data-lang-key="confidential-warning-text"></p>
+    </div>
 
     <div id="passcode-overlay">
         <div class="passcode-box">
@@ -695,6 +713,9 @@
         const translationWarningText = document.querySelector('#translation-warning p');
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
+        const confidentialWarning = document.getElementById('confidential-warning'); // New confidential warning element
+        const confidentialText = document.getElementById('confidential-text'); // New confidential warning text element
+
 
         const translations = {
             'en': {
@@ -704,6 +725,7 @@
                 'passcode-submit-button': 'Submit',
                 'error-message-text': 'Incorrect passcode. Please try again.',
                 'translation-warning-text': '', // Empty for English
+                'confidential-warning-text': 'Confidential: Do not share without permission', // New English text
                 'nav-products': 'Products',
                 'nav-vision': 'Vision',
                 'nav-opportunity': 'Opportunity',
@@ -810,6 +832,7 @@
                 'passcode-submit-button': 'Absenden',
                 'error-message-text': 'Falscher Passcode. Bitte versuchen Sie es erneut.',
                 'translation-warning-text': 'Diese deutsche Version wurde maschinell übersetzt und kann Fehler enthalten.',
+                'confidential-warning-text': 'Vertraulich: Nicht ohne Genehmigung weitergeben', // New German text
                 'nav-products': 'Produkte',
                 'nav-vision': 'Vision',
                 'nav-opportunity': 'Marktchancen',
@@ -864,26 +887,26 @@
                 'by-2033-halloumi': 'bis 2033 (CAGR 12,7%)',
                 'halloumi-desc': '<strong class="text-[#118AB2]">Dies passt zu unserer kommenden Yogi BBQ Positionierung.</strong>',
                 'traction-title': 'Bewährte Erfolge & Validierter Erfolg',
-                'traction-desc': 'In nur 18 Monaten, ohne Marketingausgaben, haben wir eine signifikante Marktvalidierung gezeigt und eine starke Grundlage für Wachstum geschaffen.',
+                'traction-desc': 'In just 18 months, with zero marketing spend, we have demonstrated significant market validation and built a strong foundation for growth.',
                 'distribution-title': 'Etablierte Vertriebskanäle',
-                'distribution-desc': 'Wir haben ein robustes Netzwerk aufgebaut, um unsere Kunden effektiv zu erreichen.',
+                'distribution-desc': 'We\'ve built a robust network to reach our customers effectively.',
                 'restaurants': 'Restaurants',
                 'retail-partnerships': 'Handelspartnerschaften',
                 'online-shop': 'Online-Shop',
-                'trademark-desc': 'Unterstützt durch ein eingetragenes Warenzeichen, das Markenschutz und Wiedererkennung gewährleistet.',
+                'trademark-desc': 'Supported by a registered trademark, ensuring brand protection and recognition.',
                 'initial-investment-title': 'Erstinvestition',
                 'secured': 'Gesichert',
-                'initial-investment-desc': 'Frühzeitige Finanzierung zur Validierung des Marktpotenzials.',
+                'initial-investment-desc': 'Early funding validating market potential.',
                 'certification-title': 'Zertifizierung',
                 'consumer-trust-label': 'Aufbau von Kundenvertrauen',
                 'swiss-quality-standards-desc': 'Sicherstellung Schweizer Qualitätsstandards',
                 'production-capability-title': 'Produktionskapazität',
                 'kg-month-flexible-label': 'kg/Monat (Flexibel)',
-                'production-desc': 'Nachfrageorientierte Produktion zur Vermeidung von Lagerbeständen.',
+                'production-desc': 'Demand driven production ensuring no inventory build up.',
                 'sales-exceeding-title': 'Umsätze übertreffen',
                 'per-year-label': 'pro Jahr',
                 'roadmap-title': 'Unsere Roadmap',
-                'roadmap-desc': 'Unser strategischer Wachstumsplan sichert eine nachhaltige Expansion durch sukzessive Markteroberung und Wertschöpfungskettenaufstieg.',
+                'roadmap-desc': 'Our strategic growth plan ensures sustainable expansion by conquering markets sequentially and climbing the value chain.',
                 'phase1-label': 'PHASE 1',
                 'phase1-title': 'Die Schweiz dominieren',
                 'phase1-desc': 'Den lokalen Schweizer Markt erobern und die Produktion skalieren, um die Nachfrage zu decken.',
@@ -927,6 +950,9 @@
                 translationWarning.style.display = 'none';
                 translationWarningText.textContent = '';
             }
+
+            // Update confidential warning text
+            confidentialText.textContent = translations[lang]['confidential-warning-text'];
 
             // Update desktop navigation links
             document.querySelector('#desktop-nav [data-lang-key="nav-products"]').textContent = translations[lang]['nav-products'];
@@ -1050,6 +1076,7 @@
             if (passcodeInput.value === CORRECT_PASSCODE) {
                 passcodeOverlay.style.display = 'none';
                 appContent.style.display = 'block';
+                confidentialWarning.style.display = 'block'; // Show confidential warning after successful login
                 // Initialize content with default language (English)
                 updateContent('en');
                 // Ensure both selectors are in sync
