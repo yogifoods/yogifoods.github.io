@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yogi Foods: Investment Infographic</title>
+    <title id="doc-title">Yogi Foods: Investment Infographic</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,6 +50,21 @@
             font-weight: 900;
             color: #118AB2;
             line-height: 1.1;
+            /* Default large font size */
+            font-size: 5rem; /* For Halloumi/Dietary Shift */
+        }
+        /* Adjust font sizes for specific KPI numbers to prevent overflow on smaller screens */
+        @media (max-width: 767px) { /* Mobile screens */
+            .kpi-number {
+                font-size: 3rem; /* Smaller font size for numbers like $662.3M, $1.78B */
+            }
+            /* Specific adjustments for very large numbers if needed */
+            .kpi-number.text-7xl { /* For 40% */
+                font-size: 4rem;
+            }
+            .kpi-number.text-8xl { /* For CHF 300K */
+                font-size: 5rem;
+            }
         }
         .kpi-label {
             font-weight: 300;
@@ -276,13 +291,26 @@
                 grid-template-columns: repeat(3, minmax(0, 1fr)); /* 3 columns on large screens */
             }
         }
+        /* Styling for the warning box */
+        .warning-box {
+            background-color: #fff3cd; /* Light yellow background */
+            border-left: 5px solid #ffc107; /* Orange left border */
+            padding: 1rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0.5rem;
+            color: #664d03; /* Dark yellow text */
+            font-size: 0.9rem;
+            display: none; /* Hidden by default */
+            text-align: center;
+        }
     </style>
 </head>
 <body class="text-[#073B4C]">
 
     <div id="passcode-overlay">
         <div class="passcode-box">
-            <h2 class="text-3xl font-bold text-[#073B4C] mb-4">Access to Yogi Foods Investment Proposal</h2>
+            <h2 id="passcode-title" class="text-3xl font-bold text-[#073B4C] mb-4">Access to Yogi Foods Investment Proposal</h2>
             <input type="password" id="passcode-input" class="passcode-input" placeholder="Enter passcode">
             <button id="passcode-submit" class="passcode-button">Submit</button>
             <div id="error-message" class="error-message hidden">Incorrect passcode. Please try again.</div>
@@ -293,31 +321,40 @@
         <header class="bg-white shadow-md sticky top-0 z-50">
             <div class="container mx-auto px-6 py-4 flex justify-between items-center">
                 <h1 class="text-2xl font-bold text-[#118AB2]">Yogi Foods</h1>
-                <nav class="hidden md:flex space-x-8">
-                    <a href="#products" class="hover:text-[#FF6B6B]">Products</a>
-                    <a href="#vision" class="hover:text-[#FF6B6B]">Vision</a>
-                    <a href="#opportunity" class="hover:text-[#FF6B6B]">Opportunity</a>
-                    <a href="#traction" class="hover:text-[#FF6B6B]">Traction</a>
-                    <a href="#roadmap" class="hover:text-[#FF6B6B]">Roadmap</a>
-                    <a href="#investment" class="hover:text-[#FF6B6B]">Investment</a>
+                <nav class="hidden md:flex space-x-8 items-center">
+                    <a href="#products" class="hover:text-[#FF6B6B]" data-lang-key="nav-products">Products</a>
+                    <a href="#vision" class="hover:text-[#FF6B6B]" data-lang-key="nav-vision">Vision</a>
+                    <a href="#opportunity" class="hover:text-[#FF6B6B]" data-lang-key="nav-opportunity">Opportunity</a>
+                    <a href="#traction" class="hover:text-[#FF6B6B]" data-lang-key="nav-traction">Traction</a>
+                    <a href="#roadmap" class="hover:text-[#FF6B6B]" data-lang-key="nav-roadmap">Roadmap</a>
+                    <a href="#investment" class="hover:text-[#FF6B6B]" data-lang-key="nav-investment">Investment</a>
+                    <select id="language-selector" class="ml-4 p-2 rounded-md border border-gray-300 bg-white text-gray-700">
+                        <option value="en">English</option>
+                        <option value="de">Deutsch</option>
+                    </select>
                 </nav>
             </div>
         </header>
 
         <main class="container mx-auto px-6 py-12">
+            <!-- Warning box for German translation -->
+            <div id="translation-warning" class="warning-box">
+                <p data-lang-key="translation-warning-text"></p>
+            </div>
+
             <section id="vision" class="mb-12 bg-white rounded-lg p-8 shadow-2xl">
-                <h2 class="text-3xl font-bold text-center mb-8">Company Overview & Vision</h2>
+                <h2 id="vision-title" class="text-3xl font-bold text-center mb-8" data-lang-key="vision-title">Company Overview & Vision</h2>
                 <div class="md:flex md:items-center md:text-left mb-8">
                     <img src="https://cdn.sumup.store/shops/48241983/settings/th2048/5f982c09-f692-45e2-8269-5fb60f963017.png" alt="Yogi Foods Logo" class="mx-auto md:mx-0 my-6 md:my-0 max-w-[250px] h-auto md:mr-8">
                     <div class="flex-1">
-                        <h1 class="text-2xl md:text-3xl font-black text-[#073B4C] custom-line-height">
+                        <h1 id="vision-tagline" class="text-2xl md:text-3xl font-black text-[#073B4C] custom-line-height" data-lang-key="vision-tagline">
                             Crafting <span class="text-[#118AB2]">premium</span> milk products rooted in Indian <span class="text-[#118AB2]">tradition</span>, adapted for <span class="text-[#118AB2]">world markets</span>, with a focus on <span class="text-[#118AB2]">quality</span> and <span class="text-[#118AB2]">sustainability</span>.
                         </h1>
                     </div>
                 </div>
                 <div class="flex items-center justify-center mb-8">
                     <div class="flex-grow border-t-2 border-[#FF6B6B] mx-2"></div>
-                    <p class="text-xl md:text-2xl text-[#FF6B6B] font-semibold text-center artistic-font">
+                    <p id="vision-swiss-quality" class="text-xl md:text-2xl text-[#FF6B6B] font-semibold text-center artistic-font" data-lang-key="vision-swiss-quality">
                         Proudly made in Switzerland with Swiss milk and to Swiss quality standards
                     </p>
                     <div class="flex-grow border-t-2 border-[#FF6B6B] mx-2"></div>
@@ -325,70 +362,70 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                     <div class="sub-card text-center">
-                        <h3 class="text-2xl font-bold mb-2">Founding Team</h3>
-                        <p class="text-lg mb-2"><strong>Devesh Kothari:</strong> 25+ years of experience building successful products at Nokia and Google.</p>
-                        <p class="text-lg mt-4 mb-2"><strong>Vita Leisibach:</strong> 20+ years experience in Finance</p>
-                        <p class="mt-4 text-sm">Yogi Foods is led by an experienced, passionate, creative and strategic team.</p>
+                        <h3 id="founding-team-title" class="text-2xl font-bold mb-2" data-lang-key="founding-team-title">Founding Team</h3>
+                        <p id="devesh-exp" class="text-lg mb-2" data-lang-key="devesh-exp"><strong>Devesh Kothari:</strong> 25+ years of experience building successful products at Nokia and Google.</p>
+                        <p id="vita-exp" class="text-lg mt-4 mb-2" data-lang-key="vita-exp"><strong>Vita Leisibach:</strong> 20+ years experience in Finance</p>
+                        <p id="team-desc" class="mt-4 text-sm" data-lang-key="team-desc">Yogi Foods is led by an experienced, passionate, creative and strategic team.</p>
                         <div class="kpi-card bg-[#FFD166] mt-6 mx-auto max-w-[200px] py-4 px-2">
                             <p class="kpi-number text-4xl text-[#073B4C] mb-1">60+</p>
-                            <p class="kpi-label text-md text-[#073B4C]">Years Combined Experience</p>
+                            <p id="combined-exp" class="kpi-label text-md text-[#073B4C]" data-lang-key="combined-exp">Years Combined Experience</p>
                         </div>
                     </div>
                     <div class="sub-card text-center">
-                        <h3 class="text-2xl font-bold mb-2">Board of Directors</h3>
-                        <p class="text-lg mb-2"><strong>Aditya Tiwari:</strong> Early investor (currently part of Google)</p>
+                        <h3 id="board-title" class="text-2xl font-bold mb-2" data-lang-key="board-title">Board of Directors</h3>
+                        <p id="aditya-desc" class="text-lg mb-2" data-lang-key="aditya-desc"><strong>Aditya Tiwari:</strong> Early investor (currently part of Google)</p>
                     </div>
                 </div>
             </section>
 
             <!-- Our Products Section - Now a Carousel -->
             <section id="products" class="mb-12 bg-white rounded-lg p-8 shadow-2xl">
-                <h2 class="text-3xl font-bold text-center mb-8">Our Products</h2>
-                <p class="text-center max-w-2xl mx-auto mb-12">Discover our range of authentic Indian dairy products, crafted with Swiss milk and quality.</p>
+                <h2 id="products-title" class="text-3xl font-bold text-center mb-8" data-lang-key="products-title">Our Products</h2>
+                <p id="products-desc" class="text-center max-w-2xl mx-auto mb-12" data-lang-key="products-desc">Discover our range of authentic Indian dairy products, crafted with Swiss milk and quality.</p>
                 
                 <div class="carousel-container">
                     <div class="carousel-track" id="product-carousel-track">
                         <!-- Product 1: Yogi Paneer - Traditional / Klassisch (smaller pack) -->
                         <div class="product-slide">
                             <img src="https://images.sumup.com/img_3AB0YD71ZZ962R9Q3MZYBM460G/image.png" alt="Yogi Paneer - Traditional / Klassisch" class="mx-auto mb-4 rounded-lg w-full max-w-[600px] h-auto">
-                            <h3 class="text-xl font-bold mb-2">Yogi Paneer - Classic/Traditional</h3>
-                            <p class="text-md mb-2">Traditional Indian fresh cheese</p>
+                            <h3 data-lang-key="product1-title" class="text-xl font-bold mb-2">Yogi Paneer - Classic/Traditional</h3>
+                            <p data-lang-key="product1-desc" class="text-md mb-2">Traditional Indian fresh cheese</p>
                         </div>
                         <!-- Product 2: Yogi Ghee / Bratbutter -->
                         <div class="product-slide">
                             <img src="https://images.sumup.com/img_39N3M8CWZB8SWAT0K620H61TE6/image.png" alt="Yogi Ghee / Bratbutter" class="mx-auto mb-4 rounded-lg w-full max-w-[600px] h-auto">
-                            <h3 class="text-xl font-bold mb-2">Yogi Ghee</h3>
-                            <p class="text-md mb-2">Traditional clarified butter</p>
+                            <h3 data-lang-key="product2-title" class="text-xl font-bold mb-2">Yogi Ghee</h3>
+                            <p data-lang-key="product2-desc" class="text-md mb-2">Traditional clarified butter</p>
                         </div>
                         <!-- Product 3: BIO Yogi Paneer - Salatkäse gesalzen mit Kräutern -->
                         <div class="product-slide">
                             <img src="https://images.sumup.com/img_20ABB6PZG09CJTBEBV02K1T2PD/image.png" alt="BIO Yogi Paneer - Salatkäse gesalzen mit Kräutern" class="mx-auto mb-4 rounded-lg w-full max-w-[600px] h-auto">
-                            <h3 class="text-xl font-bold mb-2">BIO Yogi Paneer - Herbs</h3>
-                            <p class="text-md mb-2">Salted salad cheese with herbs</p>
+                            <h3 data-lang-key="product3-title" class="text-xl font-bold mb-2">BIO Yogi Paneer - Herbs</h3>
+                            <p data-lang-key="product3-desc" class="text-md mb-2">Salted salad cheese with herbs</p>
                         </div>
                         <!-- Product 4: BIO Yogi Paneer - Salatkäse gesalzen mit Pfeffer -->
                         <div class="product-slide">
                             <img src="https://images.sumup.com/img_5Z9EKWN3SD88BB48GTHDFB513W/image.png" alt="BIO Yogi Paneer - Salatkäse gesalzen mit Pfeffern" class="mx-auto mb-4 rounded-lg w-full max-w-[600px] h-auto">
-                            <h3 class="text-xl font-bold mb-2">BIO Yogi Paneer - Pepper</h3>
-                            <p class="text-md mb-2">Salted salad cheese with pepper</p>
+                            <h3 data-lang-key="product4-title" class="text-xl font-bold mb-2">BIO Yogi Paneer - Pepper</h3>
+                            <p data-lang-key="product4-desc" class="text-md mb-2">Salted salad cheese with pepper</p>
                         </div>
                         <!-- Product 5: BIO Yogi Paneer - Traditional / Klassisch -->
                         <div class="product-slide">
                             <img src="https://images.sumup.com/img_7BSYKKGC129DC8QX0M5979YWNW/image.png" alt="BIO Yogi Paneer - Traditional / Klassisch" class="mx-auto mb-4 rounded-lg w-full max-w-[600px] h-auto">
-                            <h3 class="text-xl font-bold mb-2">BIO Yogi Paneer - Classic</h3>
-                            <p class="text-md mb-2">Traditional Indian fresh cheese</p>
+                            <h3 data-lang-key="product5-title" class="text-xl font-bold mb-2">BIO Yogi Paneer - Classic</h3>
+                            <p data-lang-key="product5-desc" class="text-md mb-2">Traditional Indian fresh cheese</p>
                         </div>
                         <!-- Product 6: Yogi Paneer - BBQ Paneer gesalzen mit Kräutern -->
                         <div class="product-slide">
                             <img src="https://images.sumup.com/img_0RXSYMT4A886VTTA4F99NYH76X/image.png" alt="Yogi Paneer - BBQ Paneer gesalzen mit Kräutern" class="mx-auto mb-4 rounded-lg w-full max-w-[600px] h-auto">
-                            <h3 class="text-xl font-bold mb-2">Yogi Paneer - BBQ Herbs</h3>
-                            <p class="text-md mb-2">Salted BBQ paneer with herbs</p>
+                            <h3 data-lang-key="product6-title" class="text-xl font-bold mb-2">Yogi Paneer - BBQ Herbs</h3>
+                            <p data-lang-key="product6-desc" class="text-md mb-2">Salted BBQ paneer with herbs</p>
                         </div>
                         <!-- Product 7: Yogi Paneer - BBQ Paneer gesalzen mit Pfeffer -->
                         <div class="product-slide">
                             <img src="https://images.sumup.com/img_1594RFN6PF9GMS065RDGBVVBFS/image.png" alt="Yogi Paneer - BBQ Paneer gesalhen mit Pfeffer" class="mx-auto mb-4 rounded-lg w-full max-w-[600px] h-auto">
-                            <h3 class="text-xl font-bold mb-2">Yogi Paneer - BBQ Pepper</h3>
-                            <p class="text-md mb-2">Salted BBQ paneer with pepper</p>
+                            <h3 data-lang-key="product7-title" class="text-xl font-bold mb-2">Yogi Paneer - BBQ Pepper</h3>
+                            <p data-lang-key="product7-desc" class="text-md mb-2">Salted BBQ paneer with pepper</p>
                         </div>
                     </div>
                     <button class="carousel-button prev" onclick="moveSlide(-1)">&#10094;</button>
@@ -398,48 +435,48 @@
 
 
             <section id="opportunity" class="mb-12 bg-white rounded-lg p-8 shadow-2xl">
-                <h2 class="text-3xl font-bold text-center mb-4">A Market Ripe with Opportunity</h2>
-                <p class="text-center max-w-2xl mx-auto mb-12">The demand for authentic, high-quality ethnic foods is surging. Yogi Foods is perfectly positioned to capitalize on key consumer trends and untapped market potential.</p>
+                <h2 id="opportunity-title" class="text-3xl font-bold text-center mb-4" data-lang-key="opportunity-title">A Market Ripe with Opportunity</h2>
+                <p id="opportunity-desc" class="text-center max-w-2xl mx-auto mb-12" data-lang-key="opportunity-desc">The demand for authentic, high-quality ethnic foods is surging. Yogi Foods is perfectly positioned to capitalize on key consumer trends and untapped market potential.</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="kpi-card">
-                        <h3 class="text-2xl font-bold mb-2">Swiss Paneer Demand</h3>
+                        <h3 id="swiss-paneer-demand-title" class="text-2xl font-bold mb-2" data-lang-key="swiss-paneer-demand-title">Swiss Paneer Demand</h3>
                         <p class="kpi-number text-5xl mb-2">+10,000</p>
-                        <p class="kpi-label text-xl">kg per month</p>
-                        <p class="mt-4 text-sm">A significant untapped demand for fresh, authentic paneer exists in Switzerland alone, providing a strong initial market.</p>
+                        <p id="swiss-paneer-demand-label" class="kpi-label text-xl" data-lang-key="kg-per-month">kg per month</p>
+                        <p id="swiss-paneer-demand-desc" class="mt-4 text-sm" data-lang-key="swiss-paneer-demand-desc">A significant untapped demand for fresh, authentic paneer exists in Switzerland alone, providing a strong initial market.</p>
                     </div>
 
                     <div class="kpi-card">
-                        <h3 class="text-2xl font-bold mb-2">European Ready Meals</h3>
+                        <h3 id="eu-ready-meals-title" class="text-2xl font-bold mb-2" data-lang-key="eu-ready-meals-title">European Ready Meals</h3>
                         <p class="kpi-number text-6xl mb-2">€41.78B</p>
-                        <p class="kpi-label text-xl">by 2029 (CAGR 4.3%)</p>
-                        <p class="mt-4 text-sm">A high-growth sector projected to soar, driven by demand for convenient, quality food.</p>
+                        <p id="eu-ready-meals-label" class="kpi-label text-xl" data-lang-key="by-2029">(by 2029 (CAGR 4.3%))</p>
+                        <p id="eu-ready-meals-desc" class="mt-4 text-sm" data-lang-key="eu-ready-meals-desc">A high-growth sector projected to soar, driven by demand for convenient, quality food.</p>
                     </div>
 
                     <div class="kpi-card">
-                        <h3 class="text-2xl font-bold mb-2">Dietary Shift</h3>
+                        <h3 id="dietary-shift-title" class="text-2xl font-bold mb-2" data-lang-key="dietary-shift-title">Dietary Shift</h3>
                         <p class="kpi-number text-7xl mb-2">40%</p>
-                        <p class="kpi-label text-xl">Vegetarian & Flexitarian</p>
-                        <p class="mt-4 text-sm">A significant portion of the market is shifting towards <span class="font-semibold">non meat</span> diets.</p>
+                        <p id="dietary-shift-label" class="kpi-label text-xl" data-lang-key="veg-flex">Vegetarian & Flexitarian</p>
+                        <p id="dietary-shift-desc" class="mt-4 text-sm" data-lang-key="dietary-shift-desc">A significant portion of the market is shifting towards <span class="font-semibold">non meat</span> diets.</p>
                     </div>
 
                     <!-- New grouping card for Feta and Halloumi -->
                     <div class="grouping-card">
-                        <h3 class="text-2xl font-bold mb-1 text-[#073B4C]">Health/Leisure lifestyle</h3>
-                        <p class="text-lg font-semibold mb-4 text-[#073B4C]">(Fresh Salads and BBQ)</p>
-                        <p class="mt-2 text-sm">Globally, vegetarian packaged salads hold 67.4% share (6.7% CAGR).</p>
-                        <p class="mt-2 text-sm mb-4">29% of European BBQs feature vegetarian options.</p>
+                        <h3 id="lifestyle-title" class="text-2xl font-bold mb-1 text-[#073B4C]" data-lang-key="lifestyle-title">Health/Leisure lifestyle</h3>
+                        <p id="lifestyle-subtitle" class="text-lg font-semibold mb-4 text-[#073B4C]" data-lang-key="lifestyle-subtitle">(Fresh Salads and BBQ)</p>
+                        <p id="veg-salads-stat" class="mt-2 text-sm" data-lang-key="veg-salads-stat">Globally, vegetarian packaged salads hold 67.4% share (6.7% CAGR).</p>
+                        <p id="eu-bbq-stat" class="mt-2 text-sm mb-4" data-lang-key="eu-bbq-stat">29% of European BBQs feature vegetarian options.</p>
                         <div class="flex flex-col md:flex-row md:gap-4 w-full items-stretch">
                             <div class="kpi-card flex-1 h-full">
-                                <h3 class="text-2xl font-bold mb-2">Feta</h3>
+                                <h3 id="feta-title" class="text-2xl font-bold mb-2" data-lang-key="feta-title">Feta</h3>
                                 <p class="kpi-number text-5xl mb-2">$662.3M</p>
-                                <p class="kpi-label text-xl">by 2033 (CAGR 6.8%)</p>
-                                <p class="mt-4 text-xs"><strong class="text-[#118AB2]">This aligns with our upcoming Yogi Salad product range adapted for European tastes.</strong></p>
+                                <p id="feta-label" class="kpi-label text-xl" data-lang-key="by-2033-feta">by 2033 (CAGR 6.8%)</p>
+                                <p id="feta-desc" class="mt-4 text-xs" data-lang-key="feta-desc"><strong class="text-[#118AB2]">This aligns with our upcoming Yogi Salad product range adapted for European tastes.</strong></p>
                             </div>
                             <div class="kpi-card flex-1 h-full">
-                                <h3 class="text-2xl font-bold mb-2">Halloumi</h3>
+                                <h3 id="halloumi-title" class="text-2xl font-bold mb-2" data-lang-key="halloumi-title">Halloumi</h3>
                                 <p class="kpi-number text-5xl mb-2">$1.78B</p>
-                                <p class="kpi-label text-xl">by 2033 (CAGR 12.7%)</p>
-                                <p class="mt-4 text-xs"><strong class="text-[#118AB2]">This aligns with our upcoming Yogi BBQ positioning.</strong></p>
+                                <p id="halloumi-label" class="kpi-label text-xl" data-lang-key="by-2033-halloumi">by 2033 (CAGR 12.7%)</p>
+                                <p id="halloumi-desc" class="mt-4 text-xs" data-lang-key="halloumi-desc"><strong class="text-[#118AB2]">This aligns with our upcoming Yogi BBQ positioning.</strong></p>
                             </div>
                         </div>
                     </div>
@@ -447,100 +484,105 @@
             </section>
 
             <section id="traction" class="mb-12 bg-white rounded-lg p-8 shadow-2xl">
-                <h2 class="text-3xl font-bold text-center mb-4">Proven Traction & Validated Success</h2>
-                <p class="text-center max-w-2xl mx-auto mb-12">In just 18 months, with zero marketing spend, we have demonstrated significant market validation and built a strong foundation for growth.</p>
+                <h2 id="traction-title" class="text-3xl font-bold text-center mb-4" data-lang-key="traction-title">Proven Traction & Validated Success</h2>
+                <p id="traction-desc" class="text-center max-w-2xl mx-auto mb-12" data-lang-key="traction-desc">In just 18 months, with zero marketing spend, we have demonstrated significant market validation and built a strong foundation for growth.</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     <div class="sub-card md:col-span-2 lg:col-span-4">
-                        <h3 class="text-2xl font-bold text-center mb-4">Established Distribution Channels</h3>
-                        <p class="text-center mb-4">We've built a robust network to reach our customers effectively.</p>
+                        <h3 id="distribution-title" class="text-2xl font-bold text-center mb-4" data-lang-key="distribution-title">Established Distribution Channels</h3>
+                        <p id="distribution-desc" class="text-center mb-4" data-lang-key="distribution-desc">We've built a robust network to reach our customers effectively.</p>
                         <div class="flex flex-wrap justify-center gap-4 text-center text-lg font-semibold">
-                            <div class="p-4 border-2 border-[#118AB2] rounded-lg text-[#118AB2]">Restaurants</div>
-                            <div class="p-4 border-2 border-[#118AB2] rounded-lg text-[#118AB2]">Retail Partnerships</div>
-                            <div class="p-4 border-2 border-[#118AB2] rounded-lg"><a href="https://www.yogifoods.ch" target="_blank" rel="noopener noreferrer" class="text-[#118AB2] hover:text-[#FF6B6B]">Online Shop</a></div>
+                            <div class="p-4 border-2 border-[#118AB2] rounded-lg text-[#118AB2]" data-lang-key="restaurants">Restaurants</div>
+                            <div class="p-4 border-2 border-[#118AB2] rounded-lg text-[#118AB2]" data-lang-key="retail-partnerships">Retail Partnerships</div>
+                            <div class="p-4 border-2 border-[#118AB2] rounded-lg"><a href="https://www.yogifoods.ch" target="_blank" rel="noopener noreferrer" class="text-[#118AB2] hover:text-[#FF6B6B]" data-lang-key="online-shop">Online Shop</a></div>
                         </div>
-                        <p class="mt-6 text-sm text-center">Supported by a registered trademark, ensuring brand protection and recognition.</p>
+                        <p id="trademark-desc" class="mt-6 text-sm text-center" data-lang-key="trademark-desc">Supported by a registered trademark, ensuring brand protection and recognition.</p>
                     </div>
 
                     <!-- Initial Investment Card -->
                     <div class="kpi-card bg-[#FF6B6B]">
-                        <h3 class="text-2xl font-bold mb-2 text-white">Initial Investment</h3>
+                        <h3 id="initial-investment-title" class="text-2xl font-bold mb-2 text-white" data-lang-key="initial-investment-title">Initial Investment</h3>
                         <p class="kpi-number text-6xl md:text-7xl mb-2 text-white">CHF 100K</p>
-                        <p class="kpi-label text-xl text-white">Secured</p>
-                        <p class="mt-4 text-sm text-white">Early funding validating market potential.</p>
+                        <p id="secured-label" class="kpi-label text-xl text-white" data-lang-key="secured">Secured</p>
+                        <p id="initial-investment-desc" class="mt-4 text-sm text-white" data-lang-key="initial-investment-desc">Early funding validating market potential.</p>
                     </div>
 
                     <!-- BIO/Organic Card - MODIFIED -->
                     <div class="kpi-card bg-[#06D6A0]">
-                        <h3 class="text-2xl font-bold mb-2 text-[#073B4C]">Certification</h3>
+                        <h3 id="certification-title" class="text-2xl font-bold mb-2 text-[#073B4C]" data-lang-key="certification-title">Certification</h3>
                         <p class="kpi-number text-6xl md:text-7xl mb-2 text-white">BIO</p>
-                        <p class="kpi-label text-xl text-[#073B4C]">Building consumer trust</p>
-                        <p class="mt-2 text-sm text-[#073B4C] font-semibold">Ensuring Swiss Quality Standards</p>
+                        <p id="consumer-trust-label" class="kpi-label text-xl text-[#073B4C]" data-lang-key="consumer-trust-label">Building consumer trust</p>
+                        <p id="swiss-quality-standards-desc" class="mt-2 text-sm text-[#073B4C] font-semibold" data-lang-key="swiss-quality-standards-desc">Ensuring Swiss Quality Standards</p>
                     </div>
                     
                     <!-- Production Capability Card -->
                     <div class="kpi-card bg-[#118AB2]">
-                        <h3 class="text-2xl font-bold mb-2 text-white">Production Capability</h3>
+                        <h3 id="production-capability-title" class="text-2xl font-bold mb-2 text-white" data-lang-key="production-capability-title">Production Capability</h3>
                         <p class="kpi-number text-6xl md:text-7xl mb-2 text-white">500<br>-<br>1500</p>
-                        <p class="kpi-label text-xl text-white">kg/month (Flexible)</p>
-                        <p class="mt-4 text-sm text-white">Demand driven production ensuring no inventory build up.</p>
+                        <p id="kg-month-flexible-label" class="kpi-label text-xl text-white" data-lang-key="kg-month-flexible-label">kg/month (Flexible)</p>
+                        <p id="production-desc" class="mt-4 text-sm text-white" data-lang-key="production-desc">Demand driven production ensuring no inventory build up.</p>
                     </div>
 
                     <!-- Sales Exceeding Card -->
                     <div class="kpi-card bg-[#FFD166]">
-                        <h3 class="text-2xl font-bold mb-2 text-[#073B4C]">Sales Exceeding</h3>
+                        <h3 id="sales-exceeding-title" class="text-2xl font-bold mb-2 text-[#073B4C]" data-lang-key="sales-exceeding-title">Sales Exceeding</h3>
                         <p class="kpi-number text-6xl md:text-7xl mb-2 text-white">> CHF 110K</p>
-                        <p class="kpi-label text-xl text-[#073B4C]">per year</p>
+                        <p id="per-year-label" class="kpi-label text-xl text-[#073B4C]" data-lang-key="per-year-label">per year</p>
                     </div>
                 </div>
             </section>
 
             <section id="roadmap" class="mb-12 bg-white rounded-lg p-8 shadow-2xl">
-                <h2 class="text-3xl font-bold text-center mb-4">Our Phased Roadmap to Global Leadership</h2>
-                <p class="text-center max-w-3xl mx-auto mb-12">Our strategic growth plan ensures sustainable expansion by conquering markets sequentially and climbing the value chain.</p>
+                <h2 id="roadmap-title" class="text-3xl font-bold text-center mb-4" data-lang-key="roadmap-title">Our Phased Roadmap to Global Leadership</h2>
+                <p id="roadmap-desc" class="text-center max-w-3xl mx-auto mb-12" data-lang-key="roadmap-desc">Our strategic growth plan ensures sustainable expansion by conquering markets sequentially and climbing the value chain.</p>
                 <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-4">
                     <div class="flow-step text-center p-6 border-2 rounded-lg w-full md:w-1/3">
-                        <p class="text-sm font-bold text-[#118AB2]">PHASE 1</p>
-                        <p class="text-xl font-semibold my-2">Dominate Switzerland</p>
-                        <p class="text-sm">Capture the local Swiss market and scale production to meet demand.</p>
+                        <p class="text-sm font-bold text-[#118AB2]" data-lang-key="phase1-label">PHASE 1</p>
+                        <p id="phase1-title" class="text-xl font-semibold my-2" data-lang-key="phase1-title">Dominate Switzerland</p>
+                        <p id="phase1-desc" class="text-sm" data-lang-key="phase1-desc">Capture the local Swiss market and scale production to meet demand.</p>
                     </div>
                     <div class="flow-arrow text-4xl font-light transform md:-translate-y-4 rotate-90 md:rotate-0">→</div>
                     <div class="flow-step text-center p-6 border-2 rounded-lg w-full md:w-1/3">
-                        <p class="text-sm font-bold text-[#118AB2]">PHASE 2</p>
-                        <p class="text-xl font-semibold my-2">Expand & Diversify</p>
-                        <p class="text-sm">Establish partnerships in the UAE & Nordics. Innovate into Feta and Halloumi markets.</p>
+                        <p class="text-sm font-bold text-[#118AB2]" data-lang-key="phase2-label">PHASE 2</p>
+                        <p id="phase2-title" class="text-xl font-semibold my-2" data-lang-key="phase2-title">Expand & Diversify</p>
+                        <p id="phase2-desc" class="text-sm" data-lang-key="phase2-desc">Establish partnerships in the UAE & Nordics. Innovate into Feta and Halloumi markets.</p>
                     </div>
                     <div class="flow-arrow text-4xl font-light transform md:-translate-y-4 rotate-90 md:rotate-0">→</div>
                     <div class="flow-step text-center p-6 border-2 rounded-lg w-full md:w-1/3">
-                        <p class="text-sm font-bold text-[#118AB2]">PHASE 3</p>
-                        <p class="text-xl font-semibold my-2">Climb the Value Chain</p>
-                        <p class="text-sm">Launch a line of premium, Paneer-based frozen ready meals for retail.</p>
+                        <p class="text-sm font-bold text-[#118AB2]" data-lang-key="phase3-label">PHASE 3</p>
+                        <p id="phase3-title" class="text-xl font-semibold my-2" data-lang-key="phase3-title">Climb the Value Chain</p>
+                        <p id="phase3-desc" class="text-sm" data-lang-key="phase3-desc">Launch a line of premium, Paneer-based frozen ready meals for retail.</p>
                     </div>
                 </div>
             </section>
 
             <section id="investment" class="bg-white rounded-lg p-8 shadow-2xl">
-                <h2 class="text-3xl font-bold text-center mb-4">The Investment Opportunity</h2>
-                <p class="text-center max-w-3xl mx-auto mb-12">Join us at this inflection point. We are seeking strategic partners to help us accelerate our growth and capture a significant share of the global market.</p>
+                <h2 id="investment-title" class="text-3xl font-bold text-center mb-4" data-lang-key="investment-title">The Investment Opportunity</h2>
+                <p id="investment-desc" class="text-center max-w-3xl mx-auto mb-12" data-lang-key="investment-desc">Join us at this inflection point. We are seeking strategic partners to help us accelerate our growth and capture a significant share of the global market.</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                     <div class="text-center">
-                        <h3 class="text-2xl font-bold">Funding Ask</h3>
+                        <h3 id="funding-ask-title" class="text-2xl font-bold" data-lang-key="funding-ask-title">Funding Ask</h3>
                         <div class="my-4">
                             <p class="kpi-number text-8xl text-[#FF6B6B]">CHF 300K</p>
-                            <p class="kpi-label text-2xl">for 10% Equity</p>
+                            <p id="equity-label" class="kpi-label text-2xl" data-lang-key="equity-label">for 10% Equity</p>
                         </div>
-                        <p class="text-lg font-semibold">(CHF 3 Million Valuation)</p>
+                        <p id="valuation-label" class="text-lg font-semibold" data-lang-key="valuation-label">(CHF 3 Million Valuation)</p>
+                        <!-- New card for minimum bucket size -->
+                        <div class="kpi-card bg-[#FFD166] mt-6 mx-auto max-w-[250px] py-4 px-2">
+                            <p class="kpi-number text-4xl text-[#073B4C] mb-1">CHF 30K</p>
+                            <p id="min-bucket-size-label" class="kpi-label text-md text-[#073B4C]" data-lang-key="min-bucket-size-label">Minimum Bucket Size</p>
+                        </div>
                     </div>
                     <div>
-                        <h3 class="text-2xl font-bold text-center mb-4">Use of Funds</h3>
-                        <p class="text-center mb-4">This investment will be strategically allocated to fuel our key growth drivers.</p>
+                        <h3 id="use-of-funds-title" class="text-2xl font-bold text-center mb-4" data-lang-key="use-of-funds-title">Use of Funds</h3>
+                        <p id="use-of-funds-desc" class="text-center mb-4" data-lang-key="use-of-funds-desc">This investment will be strategically allocated to fuel our key growth drivers.</p>
                         <div class="chart-container">
                             <canvas id="fundingChart"></canvas>
                         </div>
                     </div>
                     <!-- Updated Exit Strategy Card with underlines -->
                     <div class="md:col-span-2 sub-card text-center">
-                        <h3 class="text-2xl font-bold">Exit Strategy (3-5 Year Timeframe)</h3>
-                        <p class="text-lg">Our strategy is to generate significant investor returns by positioning ourselves for a buyout by an established <span class="font-semibold underline">European food conglomerate</span>. The appeal lies in our <span class="font-semibold underline">powerful premium Yogi brand</span> and a product portfolio that <span class="font-semibold underline">perfectly complements a larger entity</span>, making us an ideal merger target.</p>
+                        <h3 id="exit-strategy-title" class="text-2xl font-bold" data-lang-key="exit-strategy-title">Exit Strategy (3-5 Year Timeframe)</h3>
+                        <p id="exit-strategy-desc" class="text-lg" data-lang-key="exit-strategy-desc">Our strategy is to generate significant investor returns by positioning ourselves for a buyout by an established <span class="font-semibold underline">European food conglomerate</span>. The appeal lies in our <span class="font-semibold underline">powerful premium Yogi brand</span> and a product portfolio that <span class="font-semibold underline">perfectly complements a larger entity</span>, making us an ideal merger target.</p>
                     </div>
                 </div>
             </section>
@@ -548,8 +590,8 @@
 
         <footer class="bg-[#073B4C] text-white mt-20">
             <div class="container mx-auto px-6 py-8 text-center">
-                <h2 class="text-2xl font-bold">Yogi Foods: Purity. Tradition. Growth.</h2>
-                <p class="my-4">To discuss this exciting opportunity further, please connect with us.</p>
+                <h2 id="footer-tagline" class="text-2xl font-bold" data-lang-key="footer-tagline">Yogi Foods: Purity. Tradition. Growth.</h2>
+                <p id="footer-connect" class="my-4" data-lang-key="footer-connect">To discuss this exciting opportunity further, please connect with us.</p>
                 <p class="font-semibold">Devesh Kothari</p>
                 <p>
                     <a href="mailto:devesh@indub.ch" class="hover:text-[#FFD166]">devesh@indub.ch</a> | 
@@ -567,11 +609,357 @@
         const passcodeSubmit = document.getElementById('passcode-submit');
         const errorMessage = document.getElementById('error-message');
         const appContent = document.getElementById('app-content');
+        const languageSelector = document.getElementById('language-selector');
+        const translationWarning = document.getElementById('translation-warning');
+        const translationWarningText = document.querySelector('#translation-warning p');
 
+        const translations = {
+            'en': {
+                'doc-title': 'Yogi Foods: Investment Infographic',
+                'passcode-title': 'Access to Yogi Foods Investment Proposal',
+                'passcode-placeholder': 'Enter passcode',
+                'passcode-submit-button': 'Submit',
+                'error-message-text': 'Incorrect passcode. Please try again.',
+                'translation-warning-text': '', // Empty for English
+                'nav-products': 'Products',
+                'nav-vision': 'Vision',
+                'nav-opportunity': 'Opportunity',
+                'nav-traction': 'Traction',
+                'nav-roadmap': 'Roadmap',
+                'nav-investment': 'Investment',
+                'vision-title': 'Company Overview & Vision',
+                'vision-tagline': 'Crafting <span class="text-[#118AB2]">premium</span> milk products rooted in Indian <span class="text-[#118AB2]">tradition</span>, adapted for <span class="text-[#118AB2]">world markets</span>, with a focus on <span class="text-[#118AB2]">quality</span> and <span class="text-[#118AB2]">sustainability</span>.',
+                'vision-swiss-quality': 'Proudly made in Switzerland with Swiss milk and to Swiss quality standards',
+                'founding-team-title': 'Founding Team',
+                'devesh-exp': '<strong>Devesh Kothari:</strong> 25+ years of experience building successful products at Nokia and Google.',
+                'vita-exp': '<strong>Vita Leisibach:</strong> 20+ years experience in Finance',
+                'team-desc': 'Yogi Foods is led by an experienced, passionate, creative and strategic team.',
+                'combined-exp': 'Years Combined Experience',
+                'board-title': 'Board of Directors',
+                'aditya-desc': '<strong>Aditya Tiwari:</strong> Early investor (currently part of Google)',
+                'products-title': 'Our Products',
+                'products-desc': 'Discover our range of authentic Indian dairy products, crafted with Swiss milk and quality.',
+                'product1-title': 'Yogi Paneer - Classic/Traditional',
+                'product1-desc': 'Traditional Indian fresh cheese',
+                'product2-title': 'Yogi Ghee',
+                'product2-desc': 'Traditional clarified butter',
+                'product3-title': 'BIO Yogi Paneer - Herbs',
+                'product3-desc': 'Salted salad cheese with herbs',
+                'product4-title': 'BIO Yogi Paneer - Pepper',
+                'product4-desc': 'Salted salad cheese with pepper',
+                'product5-title': 'BIO Yogi Paneer - Classic',
+                'product5-desc': 'Traditional Indian fresh cheese',
+                'product6-title': 'Yogi Paneer - BBQ Herbs',
+                'product6-desc': 'Salted BBQ paneer with herbs',
+                'product7-title': 'Yogi Paneer - BBQ Pepper',
+                'product7-desc': 'Salted BBQ paneer with pepper',
+                'opportunity-title': 'A Market Ripe with Opportunity',
+                'opportunity-desc': 'The demand for authentic, high-quality ethnic foods is surging. Yogi Foods is perfectly positioned to capitalize on key consumer trends and untapped market potential.',
+                'swiss-paneer-demand-title': 'Swiss Paneer Demand',
+                'kg-per-month': 'kg per month',
+                'swiss-paneer-demand-desc': 'A significant untapped demand for fresh, authentic paneer exists in Switzerland alone, providing a strong initial market.',
+                'eu-ready-meals-title': 'European Ready Meals',
+                'by-2029': 'by 2029 (CAGR 4.3%)',
+                'eu-ready-meals-desc': 'A high-growth sector projected to soar, driven by demand for convenient, quality food.',
+                'dietary-shift-title': 'Dietary Shift',
+                'veg-flex': 'Vegetarian & Flexitarian',
+                'dietary-shift-desc': 'A significant portion of the market is shifting towards <span class="font-semibold">non meat</span> diets.',
+                'lifestyle-title': 'Health/Leisure lifestyle',
+                'lifestyle-subtitle': '(Fresh Salads and BBQ)',
+                'veg-salads-stat': 'Globally, vegetarian packaged salads hold 67.4% share (6.7% CAGR).',
+                'eu-bbq-stat': '29% of European BBQs feature vegetarian options.',
+                'feta-title': 'Feta',
+                'by-2033-feta': 'by 2033 (CAGR 6.8%)',
+                'feta-desc': '<strong class="text-[#118AB2]">This aligns with our upcoming Yogi Salad product range adapted for European tastes.</strong>',
+                'halloumi-title': 'Halloumi',
+                'by-2033-halloumi': 'by 2033 (CAGR 12.7%)',
+                'halloumi-desc': '<strong class="text-[#118AB2]">This aligns with our upcoming Yogi BBQ positioning.</strong>',
+                'traction-title': 'Proven Traction & Validated Success',
+                'traction-desc': 'In just 18 months, with zero marketing spend, we have demonstrated significant market validation and built a strong foundation for growth.',
+                'distribution-title': 'Established Distribution Channels',
+                'distribution-desc': 'We\'ve built a robust network to reach our customers effectively.',
+                'restaurants': 'Restaurants',
+                'retail-partnerships': 'Retail Partnerships',
+                'online-shop': 'Online Shop',
+                'trademark-desc': 'Supported by a registered trademark, ensuring brand protection and recognition.',
+                'initial-investment-title': 'Initial Investment',
+                'secured': 'Secured',
+                'initial-investment-desc': 'Early funding validating market potential.',
+                'certification-title': 'Certification',
+                'consumer-trust-label': 'Building consumer trust',
+                'swiss-quality-standards-desc': 'Ensuring Swiss Quality Standards',
+                'production-capability-title': 'Production Capability',
+                'kg-month-flexible-label': 'kg/month (Flexible)',
+                'production-desc': 'Demand driven production ensuring no inventory build up.',
+                'sales-exceeding-title': 'Sales Exceeding',
+                'per-year-label': 'per year',
+                'roadmap-title': 'Our Phased Roadmap to Global Leadership',
+                'roadmap-desc': 'Our strategic growth plan ensures sustainable expansion by conquering markets sequentially and climbing the value chain.',
+                'phase1-label': 'PHASE 1',
+                'phase1-title': 'Dominate Switzerland',
+                'phase1-desc': 'Capture the local Swiss market and scale production to meet demand.',
+                'phase2-label': 'PHASE 2',
+                'phase2-title': 'Expand & Diversify',
+                'phase2-desc': 'Establish partnerships in the UAE & Nordics. Innovate into Feta and Halloumi markets.',
+                'phase3-label': 'PHASE 3',
+                'phase3-title': 'Climb the Value Chain',
+                'phase3-desc': 'Launch a line of premium, Paneer-based frozen ready meals for retail.',
+                'investment-title': 'The Investment Opportunity',
+                'investment-desc': 'Join us at this inflection point. We are seeking strategic partners to help us accelerate our growth and capture a significant share of the global market.',
+                'funding-ask-title': 'Funding Ask',
+                'equity-label': 'for 10% Equity',
+                'valuation-label': '(CHF 3 Million Valuation)',
+                'min-bucket-size-label': 'Minimum Bucket Size',
+                'use-of-funds-title': 'Use of Funds',
+                'use-of-funds-desc': 'This investment will be strategically allocated to fuel our key growth drivers.',
+                'scaling-production': 'Scaling Production',
+                'marketing-sales': 'Marketing & Sales',
+                'product-development': 'Product Development',
+                'exit-strategy-title': 'Exit Strategy (3-5 Year Timeframe)',
+                'exit-strategy-desc': 'Our strategy is to generate significant investor returns by positioning ourselves for a buyout by an established <span class="font-semibold underline">European food conglomerate</span>. The appeal lies in our <span class="font-semibold underline">powerful premium Yogi brand</span> and a product portfolio that <span class="font-semibold underline">perfectly complements a larger entity</span>, making us an ideal merger target.',
+                'footer-tagline': 'Yogi Foods: Purity. Tradition. Growth.',
+                'footer-connect': 'To discuss this exciting opportunity further, please connect with us.'
+            },
+            'de': {
+                'doc-title': 'Yogi Foods: Investitions-Infografik',
+                'passcode-title': 'Zugang zum Yogi Foods Investitionsvorschlag',
+                'passcode-placeholder': 'Passcode eingeben',
+                'passcode-submit-button': 'Absenden',
+                'error-message-text': 'Falscher Passcode. Bitte versuchen Sie es erneut.',
+                'translation-warning-text': 'Diese deutsche Version wurde maschinell übersetzt und kann Fehler enthalten.',
+                'nav-products': 'Produkte',
+                'nav-vision': 'Vision',
+                'nav-opportunity': 'Marktchancen',
+                'nav-traction': 'Erfolge',
+                'nav-roadmap': 'Roadmap',
+                'nav-investment': 'Investition',
+                'vision-title': 'Unternehmensübersicht & Vision',
+                'vision-tagline': 'Herstellung von <span class="text-[#118AB2]">Premium</span>-Milchprodukten, die in indischer <span class="text-[#118AB2]">Tradition</span> verwurzelt sind, für globale Märkte angepasst, mit Fokus auf <span class="text-[#118AB2]">Qualität</span> und <span class="text-[#118AB2]">Nachhaltigkeit</span>.',
+                'vision-swiss-quality': 'Stolz in der Schweiz hergestellt mit Schweizer Milch und nach Schweizer Qualitätsstandards',
+                'founding-team-title': 'Gründerteam',
+                'devesh-exp': '<strong>Devesh Kothari:</strong> Über 25 Jahre Erfahrung im Aufbau erfolgreicher Produkte bei Nokia und Google.',
+                'vita-exp': '<strong>Vita Leisibach:</strong> Über 20 Jahre Erfahrung im Finanzwesen.',
+                'team-desc': 'Yogi Foods wird von einem erfahrenen, leidenschaftlichen, kreativen und strategischen Team geführt.',
+                'combined-exp': 'Jahre kombinierte Erfahrung',
+                'board-title': 'Verwaltungsrat',
+                'aditya-desc': '<strong>Aditya Tiwari:</strong> Früher Investor (derzeit bei Google)',
+                'products-title': 'Unsere Produkte',
+                'products-desc': 'Entdecken Sie unser Sortiment an authentischen indischen Milchprodukten, hergestellt mit Schweizer Milch und Qualität.',
+                'product1-title': 'Yogi Paneer - Klassisch/Traditionell',
+                'product1-desc': 'Traditioneller indischer Frischkäse',
+                'product2-title': 'Yogi Ghee',
+                'product2-desc': 'Traditionelle geklärte Butter',
+                'product3-title': 'BIO Yogi Paneer - Kräuter',
+                'product3-desc': 'Gesalzener Salatkäse mit Kräutern',
+                'product4-title': 'BIO Yogi Paneer - Pfeffer',
+                'product4-desc': 'Gesalzener Salatkäse mit Pfeffer',
+                'product5-title': 'BIO Yogi Paneer - Klassisch',
+                'product5-desc': 'Traditioneller indischer Frischkäse',
+                'product6-title': 'Yogi Paneer - BBQ Kräuter',
+                'product6-desc': 'Gesalzener BBQ Paneer mit Kräutern',
+                'product7-title': 'Yogi Paneer - BBQ Pfeffer',
+                'product7-desc': 'Gesalzener BBQ Paneer mit Pfeffer',
+                'opportunity-title': 'Ein Markt voller Chancen',
+                'opportunity-desc': 'Die Nachfrage nach authentischen, hochwertigen ethnischen Lebensmitteln steigt rasant. Yogi Foods ist perfekt positioniert, um von wichtigen Verbrauchertrends und ungenutztem Marktpotenzial zu profitieren.',
+                'swiss-paneer-demand-title': 'Schweizer Paneer-Nachfrage',
+                'kg-per-month': 'kg pro Monat',
+                'swiss-paneer-demand-desc': 'Allein in der Schweiz besteht eine erhebliche ungedeckte Nachfrage nach frischem, authentischem Paneer, was einen starken Anfangsmarkt darstellt.',
+                'eu-ready-meals-title': 'Europäische Fertiggerichte',
+                'by-2029': 'bis 2029 (CAGR 4,3%)',
+                'eu-ready-meals-desc': 'Ein wachstumsstarker Sektor, der voraussichtlich stark ansteigen wird, angetrieben durch die Nachfrage nach bequemen, hochwertigen Lebensmitteln.',
+                'dietary-shift-title': 'Ernährungsumstellung',
+                'veg-flex': 'Vegetarisch & Flexitarisch',
+                'dietary-shift-desc': 'Ein erheblicher Teil des Marktes verlagert sich hin zu <span class="font-semibold">fleischlosen</span> Ernährungsweisen.',
+                'lifestyle-title': 'Gesundheits-/Freizeit-Lebensstil',
+                'lifestyle-subtitle': '(Frische Salate und BBQ)',
+                'veg-salads-stat': 'Weltweit halten vegetarische Fertigsalate einen Anteil von 67,4 % (6,7 % CAGR).',
+                'eu-bbq-stat': '29 % der europäischen BBQs bieten vegetarische Optionen.',
+                'feta-title': 'Feta',
+                'by-2033-feta': 'bis 2033 (CAGR 6,8%)',
+                'feta-desc': '<strong class="text-[#118AB2]">Dies passt zu unserem kommenden Yogi Salat-Produktsortiment, das an den europäischen Geschmack angepasst ist.</strong>',
+                'halloumi-title': 'Halloumi',
+                'by-2033-halloumi': 'bis 2033 (CAGR 12,7%)',
+                'halloumi-desc': '<strong class="text-[#118AB2]">Dies passt zu unserer kommenden Yogi BBQ Positionierung.</strong>',
+                'traction-title': 'Bewährte Erfolge & Validierter Erfolg',
+                'traction-desc': 'In nur 18 Monaten, ohne Marketingausgaben, haben wir eine signifikante Marktvalidierung gezeigt und eine starke Grundlage für Wachstum geschaffen.',
+                'distribution-title': 'Etablierte Vertriebskanäle',
+                'distribution-desc': 'Wir haben ein robustes Netzwerk aufgebaut, um unsere Kunden effektiv zu erreichen.',
+                'restaurants': 'Restaurants',
+                'retail-partnerships': 'Handelspartnerschaften',
+                'online-shop': 'Online-Shop',
+                'trademark-desc': 'Unterstützt durch ein eingetragenes Warenzeichen, das Markenschutz und Wiedererkennung gewährleistet.',
+                'initial-investment-title': 'Erstinvestition',
+                'secured': 'Gesichert',
+                'initial-investment-desc': 'Frühzeitige Finanzierung zur Validierung des Marktpotenzials.',
+                'certification-title': 'Zertifizierung',
+                'consumer-trust-label': 'Aufbau von Kundenvertrauen',
+                'swiss-quality-standards-desc': 'Sicherstellung Schweizer Qualitätsstandards',
+                'production-capability-title': 'Produktionskapazität',
+                'kg-month-flexible-label': 'kg/Monat (Flexibel)',
+                'production-desc': 'Nachfrageorientierte Produktion zur Vermeidung von Lagerbeständen.',
+                'sales-exceeding-title': 'Umsätze übertreffen',
+                'per-year-label': 'pro Jahr',
+                'roadmap-title': 'Unsere gestaffelte Roadmap zur globalen Führung',
+                'roadmap-desc': 'Unser strategischer Wachstumsplan sichert eine nachhaltige Expansion durch sukzessive Markteroberung und Wertschöpfungskettenaufstieg.',
+                'phase1-label': 'PHASE 1',
+                'phase1-title': 'Die Schweiz dominieren',
+                'phase1-desc': 'Den lokalen Schweizer Markt erobern und die Produktion skalieren, um die Nachfrage zu decken.',
+                'phase2-label': 'PHASE 2',
+                'phase2-title': 'Expandieren & Diversifizieren',
+                'phase2-desc': 'Partnerschaften in den VAE und Nordics aufbauen. Innovationen in den Feta- und Halloumi-Märkten.',
+                'phase3-label': 'PHASE 3',
+                'phase3-title': 'Die Wertschöpfungskette erklimmen',
+                'phase3-desc': 'Eine Reihe von Premium-Fertiggerichten auf Paneer-Basis für den Einzelhandel auf den Markt bringen.',
+                'investment-title': 'Die Investitionsmöglichkeit',
+                'investment-desc': 'Begleiten Sie uns an diesem Wendepunkt. Wir suchen strategische Partner, die uns helfen, unser Wachstum zu beschleunigen und einen bedeutenden Anteil am globalen Markt zu erobern.',
+                'funding-ask-title': 'Finanzierungsanfrage',
+                'equity-label': 'für 10% Eigenkapital',
+                'valuation-label': '(Bewertung CHF 3 Millionen)',
+                'min-bucket-size-label': 'Mindestinvestitionsgröße',
+                'use-of-funds-title': 'Verwendung der Mittel',
+                'use-of-funds-desc': 'Diese Investition wird strategisch eingesetzt, um unsere wichtigsten Wachstumstreiber zu fördern.',
+                'scaling-production': 'Produktionsskalierung',
+                'marketing-sales': 'Marketing & Vertrieb',
+                'product-development': 'Produktentwicklung',
+                'exit-strategy-title': 'Exit-Strategie (3-5 Jahre Zeithorizont)',
+                'exit-strategy-desc': 'Unsere Strategie ist es, signifikante Anlegerrenditen zu erzielen, indem wir uns für einen Buyout durch ein etabliertes <span class="font-semibold underline">europäisches Lebensmittelkonglomerat</span> positionieren. Der Reiz liegt in unserer starken Premium-Marke Yogi und einem Produktportfolio, das ein größeres Unternehmen perfekt ergänzt, was uns zu einem idealen Übernahmeziel macht.',
+                'footer-tagline': 'Yogi Foods: Reinheit. Tradition. Wachstum.',
+                'footer-connect': 'Um diese spannende Gelegenheit weiter zu besprechen, kontaktieren Sie uns bitte.'
+            }
+        };
+
+        // Function to update content based on selected language
+        function updateContent(lang) {
+            document.getElementById('doc-title').textContent = translations[lang]['doc-title'];
+            document.getElementById('passcode-title').textContent = translations[lang]['passcode-title'];
+            document.getElementById('passcode-input').placeholder = translations[lang]['passcode-placeholder'];
+            document.getElementById('passcode-submit').textContent = translations[lang]['passcode-submit-button'];
+            document.getElementById('error-message').textContent = translations[lang]['error-message-text'];
+
+            // Update warning message visibility and text
+            if (lang === 'de') {
+                translationWarning.style.display = 'block';
+                translationWarningText.textContent = translations[lang]['translation-warning-text'];
+            } else {
+                translationWarning.style.display = 'none';
+                translationWarningText.textContent = '';
+            }
+
+
+            document.querySelector('[data-lang-key="nav-products"]').textContent = translations[lang]['nav-products'];
+            document.querySelector('[data-lang-key="nav-vision"]').textContent = translations[lang]['nav-vision'];
+            document.querySelector('[data-lang-key="nav-opportunity"]').textContent = translations[lang]['nav-opportunity'];
+            document.querySelector('[data-lang-key="nav-traction"]').textContent = translations[lang]['nav-traction'];
+            document.querySelector('[data-lang-key="nav-roadmap"]').textContent = translations[lang]['nav-roadmap'];
+            document.querySelector('[data-lang-key="nav-investment"]').textContent = translations[lang]['nav-investment'];
+
+            document.getElementById('vision-title').textContent = translations[lang]['vision-title'];
+            document.getElementById('vision-tagline').innerHTML = translations[lang]['vision-tagline'];
+            document.getElementById('vision-swiss-quality').textContent = translations[lang]['vision-swiss-quality'];
+            document.getElementById('founding-team-title').textContent = translations[lang]['founding-team-title'];
+            document.getElementById('devesh-exp').innerHTML = translations[lang]['devesh-exp'];
+            document.getElementById('vita-exp').innerHTML = translations[lang]['vita-exp'];
+            document.getElementById('team-desc').textContent = translations[lang]['team-desc'];
+            document.getElementById('combined-exp').textContent = translations[lang]['combined-exp'];
+            document.getElementById('board-title').textContent = translations[lang]['board-title'];
+            document.getElementById('aditya-desc').innerHTML = translations[lang]['aditya-desc'];
+
+            document.getElementById('products-title').textContent = translations[lang]['products-title'];
+            document.getElementById('products-desc').textContent = translations[lang]['products-desc'];
+            document.querySelector('[data-lang-key="product1-title"]').textContent = translations[lang]['product1-title'];
+            document.querySelector('[data-lang-key="product1-desc"]').textContent = translations[lang]['product1-desc'];
+            document.querySelector('[data-lang-key="product2-title"]').textContent = translations[lang]['product2-title'];
+            document.querySelector('[data-lang-key="product2-desc"]').textContent = translations[lang]['product2-desc'];
+            document.querySelector('[data-lang-key="product3-title"]').textContent = translations[lang]['product3-title'];
+            document.querySelector('[data-lang-key="product3-desc"]').textContent = translations[lang]['product3-desc'];
+            document.querySelector('[data-lang-key="product4-title"]').textContent = translations[lang]['product4-title'];
+            document.querySelector('[data-lang-key="product4-desc"]').textContent = translations[lang]['product4-desc'];
+            document.querySelector('[data-lang-key="product5-title"]').textContent = translations[lang]['product5-title'];
+            document.querySelector('[data-lang-key="product5-desc"]').textContent = translations[lang]['product5-desc'];
+            document.querySelector('[data-lang-key="product6-title"]').textContent = translations[lang]['product6-title'];
+            document.querySelector('[data-lang-key="product6-desc"]').textContent = translations[lang]['product6-desc'];
+            document.querySelector('[data-lang-key="product7-title"]').textContent = translations[lang]['product7-title'];
+            document.querySelector('[data-lang-key="product7-desc"]').textContent = translations[lang]['product7-desc'];
+
+            document.getElementById('opportunity-title').textContent = translations[lang]['opportunity-title'];
+            document.getElementById('opportunity-desc').textContent = translations[lang]['opportunity-desc'];
+            document.getElementById('swiss-paneer-demand-title').textContent = translations[lang]['swiss-paneer-demand-title'];
+            document.getElementById('swiss-paneer-demand-label').textContent = translations[lang]['kg-per-month'];
+            document.getElementById('swiss-paneer-demand-desc').textContent = translations[lang]['swiss-paneer-demand-desc'];
+            document.getElementById('eu-ready-meals-title').textContent = translations[lang]['eu-ready-meals-title'];
+            document.getElementById('eu-ready-meals-label').textContent = translations[lang]['by-2029'];
+            document.getElementById('eu-ready-meals-desc').textContent = translations[lang]['eu-ready-meals-desc'];
+            document.getElementById('dietary-shift-title').textContent = translations[lang]['dietary-shift-title'];
+            document.getElementById('dietary-shift-label').textContent = translations[lang]['veg-flex'];
+            document.getElementById('dietary-shift-desc').innerHTML = translations[lang]['dietary-shift-desc'];
+            document.getElementById('lifestyle-title').textContent = translations[lang]['lifestyle-title'];
+            document.getElementById('lifestyle-subtitle').textContent = translations[lang]['lifestyle-subtitle'];
+            document.getElementById('veg-salads-stat').textContent = translations[lang]['veg-salads-stat'];
+            document.getElementById('eu-bbq-stat').textContent = translations[lang]['eu-bbq-stat'];
+            document.getElementById('feta-title').textContent = translations[lang]['feta-title'];
+            document.getElementById('feta-label').textContent = translations[lang]['by-2033-feta'];
+            document.getElementById('feta-desc').innerHTML = translations[lang]['feta-desc'];
+            document.getElementById('halloumi-title').textContent = translations[lang]['halloumi-title'];
+            document.getElementById('halloumi-label').textContent = translations[lang]['by-2033-halloumi'];
+            document.getElementById('halloumi-desc').innerHTML = translations[lang]['halloumi-desc'];
+
+            document.getElementById('traction-title').textContent = translations[lang]['traction-title'];
+            document.getElementById('traction-desc').textContent = translations[lang]['traction-desc'];
+            document.getElementById('distribution-title').textContent = translations[lang]['distribution-title'];
+            document.getElementById('distribution-desc').textContent = translations[lang]['distribution-desc'];
+            document.querySelector('[data-lang-key="restaurants"]').textContent = translations[lang]['restaurants'];
+            document.querySelector('[data-lang-key="retail-partnerships"]').textContent = translations[lang]['retail-partnerships'];
+            document.querySelector('[data-lang-key="online-shop"]').textContent = translations[lang]['online-shop'];
+            document.getElementById('trademark-desc').textContent = translations[lang]['trademark-desc'];
+            document.getElementById('initial-investment-title').textContent = translations[lang]['initial-investment-title'];
+            document.getElementById('secured-label').textContent = translations[lang]['secured'];
+            document.getElementById('initial-investment-desc').textContent = translations[lang]['initial-investment-desc'];
+            document.getElementById('certification-title').textContent = translations[lang]['certification-title'];
+            document.getElementById('consumer-trust-label').textContent = translations[lang]['consumer-trust-label'];
+            document.getElementById('swiss-quality-standards-desc').textContent = translations[lang]['swiss-quality-standards-desc'];
+            document.getElementById('production-capability-title').textContent = translations[lang]['production-capability-title'];
+            document.getElementById('kg-month-flexible-label').textContent = translations[lang]['kg-month-flexible-label'];
+            document.getElementById('production-desc').textContent = translations[lang]['production-desc'];
+            document.getElementById('sales-exceeding-title').textContent = translations[lang]['sales-exceeding-title'];
+            document.getElementById('per-year-label').textContent = translations[lang]['per-year-label'];
+
+            document.getElementById('roadmap-title').textContent = translations[lang]['roadmap-title'];
+            document.getElementById('roadmap-desc').textContent = translations[lang]['roadmap-desc'];
+            document.querySelector('[data-lang-key="phase1-label"]').textContent = translations[lang]['phase1-label'];
+            document.getElementById('phase1-title').textContent = translations[lang]['phase1-title'];
+            document.getElementById('phase1-desc').textContent = translations[lang]['phase1-desc'];
+            document.querySelector('[data-lang-key="phase2-label"]').textContent = translations[lang]['phase2-label'];
+            document.getElementById('phase2-title').textContent = translations[lang]['phase2-title'];
+            document.getElementById('phase2-desc').textContent = translations[lang]['phase2-desc'];
+            document.querySelector('[data-lang-key="phase3-label"]').textContent = translations[lang]['phase3-label'];
+            document.getElementById('phase3-title').textContent = translations[lang]['phase3-title'];
+            document.getElementById('phase3-desc').textContent = translations[lang]['phase3-desc'];
+
+            document.getElementById('investment-title').textContent = translations[lang]['investment-title'];
+            document.getElementById('investment-desc').textContent = translations[lang]['investment-desc'];
+            document.getElementById('funding-ask-title').textContent = translations[lang]['funding-ask-title'];
+            document.getElementById('equity-label').textContent = translations[lang]['equity-label'];
+            document.getElementById('valuation-label').textContent = translations[lang]['valuation-label'];
+            document.getElementById('min-bucket-size-label').textContent = translations[lang]['min-bucket-size-label'];
+            document.getElementById('use-of-funds-title').textContent = translations[lang]['use-of-funds-title'];
+            document.getElementById('use-of-funds-desc').textContent = translations[lang]['use-of-funds-desc'];
+            // Chart labels need to be updated if the chart is re-rendered or its data updated
+            // For simplicity, we'll assume the chart is static or re-initialized as needed.
+            // If dynamic, Chart.js update logic would be here.
+            document.getElementById('exit-strategy-title').textContent = translations[lang]['exit-strategy-title'];
+            document.getElementById('exit-strategy-desc').innerHTML = translations[lang]['exit-strategy-desc'];
+
+            document.getElementById('footer-tagline').textContent = translations[lang]['footer-tagline'];
+            document.getElementById('footer-connect').textContent = translations[lang]['footer-connect'];
+        }
+
+        // Event listeners for passcode and language selector
         passcodeSubmit.addEventListener('click', () => {
             if (passcodeInput.value === CORRECT_PASSCODE) {
                 passcodeOverlay.style.display = 'none';
                 appContent.style.display = 'block';
+                // Initialize content with default language (English)
+                updateContent('en');
             } else {
                 errorMessage.classList.remove('hidden');
                 passcodeInput.value = '';
@@ -584,75 +972,49 @@
             }
         });
 
-        const tooltipTitleCallback = (tooltipItems) => {
-            const item = tooltipItems[0];
-            let label = item.chart.data.labels[item.dataIndex];
-            if (Array.isArray(label)) {
-                return label.join(' ');
-            }
-            return label;
-        };
-        
-        const sharedChartOptions = {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    labels: {
-                        color: '#073B4C',
-                        font: {
-                           family: "'Poppins', sans-serif"
-                        }
-                    }
-                },
-                tooltip: {
-                    callbacks: {
-                        title: tooltipTitleCallback
-                    }
-                }
-            },
-            scales: {
-                y: {
-                    ticks: { 
-                        color: '#073B4C',
-                        font: { family: "'Poppins', sans-serif" }
-                    },
-                    grid: { color: '#e0e0e0' }
-                },
-                x: {
-                    ticks: { 
-                        color: '#073B4C',
-                        font: { family: "'Poppins', sans-serif" }
-                    },
-                    grid: { display: false }
-                }
-            }
-        };
-
-        new Chart(document.getElementById('fundingChart'), {
-            type: 'doughnut',
-            data: {
-                labels: ['Scaling Production', 'Marketing & Sales', 'Product Development'],
-                datasets: [{
-                    data: [50, 30, 20],
-                    backgroundColor: ['#118AB2', '#06D6A0', '#FFD166'],
-                    hoverOffset: 4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: {
-                            color: '#073B4C',
-                            font: { family: "'Poppins', sans-serif" }
-                        }
-                    }
-                }
-            }
+        languageSelector.addEventListener('change', (event) => {
+            updateContent(event.target.value);
         });
+
+        // Initialize Chart.js
+        function initializeChart() {
+            const ctx = document.getElementById('fundingChart');
+            if (ctx && typeof Chart !== 'undefined') { // Check if Chart is defined
+                // Destroy existing chart instance if it exists
+                if (ctx.chart) {
+                    ctx.chart.destroy();
+                }
+
+                ctx.chart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: [
+                            translations[languageSelector.value]['scaling-production'],
+                            translations[languageSelector.value]['marketing-sales'],
+                            translations[languageSelector.value]['product-development']
+                        ],
+                        datasets: [{
+                            data: [50, 30, 20],
+                            backgroundColor: ['#118AB2', '#06D6A0', '#FFD166'],
+                            hoverOffset: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    color: '#073B4C',
+                                    font: { family: "'Poppins', sans-serif" }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
 
         // Carousel Logic
         function moveSlide(direction) {
@@ -677,6 +1039,13 @@
                 behavior: 'smooth'
             });
         }
+
+        // Ensure Chart.js is loaded before initializing the chart
+        window.onload = () => {
+            // Set initial language and content
+            updateContent(languageSelector.value);
+            initializeChart(); // Initialize chart after content is updated
+        };
     </script>
 
 </body>
